@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using LiteratureProject.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,5 +20,7 @@ namespace LiteratureProject.Infrastructure.Data.Models
         [MaxLength(LastNameMaxLength)]
         [PersonalData]
         public string LastName { get; set; } = string.Empty;
+
+        public IEnumerable<LiteratureWork> LiteratureWorks { get; set; } = new List<LiteratureWork>();
     }
 }

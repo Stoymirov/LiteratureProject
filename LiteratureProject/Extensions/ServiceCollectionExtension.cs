@@ -1,5 +1,6 @@
 ﻿using LiteratureProject.Data;
 using LiteratureProject.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
 
@@ -28,15 +29,11 @@ namespace LiteratureProject.Extensions
         }
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDefaultIdentity<ApplicationUser>(options =>
-            {
-                options.SignIn.RequireConfirmedAccount = false;
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-            })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+           
+
+            services.AddIdentity<ApplicationUser,IdentityRole>().
+                AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             return services;
         }
     }
