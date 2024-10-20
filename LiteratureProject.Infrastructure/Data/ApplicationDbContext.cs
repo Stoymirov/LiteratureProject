@@ -9,5 +9,11 @@ namespace LiteratureProject.Data
             : base(options)
         {
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+
+        }
     }
 }
