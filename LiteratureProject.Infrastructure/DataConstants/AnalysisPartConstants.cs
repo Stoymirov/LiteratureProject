@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LiteratureProject.Infrastructure.DataConstants
 {
-    public static class StudentAnalysis
+    public static class AnalysisPartConstants
     {
-        public const int ApplicationUserIdMaxLength = 30;
+        public const int NameMaxLength = 30;
         public const int ContentMaxLength = 2000;
     }
 }

@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace LiteratureProject.Infrastructure.Data.Models
 {
     [PrimaryKey(nameof(ApplicationUserId),nameof(LiteratureWorkId))]
-    public class UserLiteratureWork
+    public class TeacherLiteratureWork
     {
         public string ApplicationUserId { get; set; } = string.Empty;
         [ForeignKey(nameof(ApplicationUserId))]
-        public ApplicationUser User { get; set; } = null!;
+        public ApplicationUser Teacher { get; set; } = null!;
         public int LiteratureWorkId { get; set; }
         [ForeignKey(nameof(LiteratureWorkId))]
         public LiteratureWork LiteratureWork { get; set; } = null!;

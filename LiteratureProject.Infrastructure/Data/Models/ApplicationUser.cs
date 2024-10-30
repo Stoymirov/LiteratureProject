@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using static LiteratureProject.Infrastructure.DataConstants.ApplicationUserConstants;
 namespace LiteratureProject.Infrastructure.Data.Models
 {
-    public class ApplicationUser
+    public class ApplicationUser:IdentityUser
     {
         [Required]
         [MaxLength(FirstNameMaxLength)]

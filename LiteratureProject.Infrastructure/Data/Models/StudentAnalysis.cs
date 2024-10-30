@@ -14,12 +14,15 @@ namespace LiteratureProject.Infrastructure.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        [MaxLength(ApplicationUserIdMaxLength)]
         public string StudentId { get; set; } = string.Empty;
         [ForeignKey(nameof(StudentId))]
         public ApplicationUser Student { get; set; } = null!;
         [Comment("tells if an essay or an textanalysis")]
         public StudentAnalysisType AnalysisType { get; set; }
+
+        public bool IsGraded { get; set; }
+        [Range(typeof(decimal),GradeMinLength,GradeMaxLength)]
+        public decimal? TotalGrade { get; set; }
 
         public IEnumerable<StudentWorkComponent> StudentWorkComponents { get; set; } = new List<StudentWorkComponent>();
 
