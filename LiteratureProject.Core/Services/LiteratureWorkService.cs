@@ -39,6 +39,8 @@ namespace LiteratureProject.Core.Services
             {
                 Name = model.Name,
                 AuthorId = model.AuthorId,
+                Id = model.Id,
+
             };
 
            
@@ -67,8 +69,10 @@ namespace LiteratureProject.Core.Services
 
         public async Task<IEnumerable<LiteratureWork>> AllLiteratureWorksByTeacherId(string teacherId)
         {
-           
-            throw new NotImplementedException();
+            return await context.UserLiteratureWorks
+         .Where(tlw => tlw.ApplicationUserId == teacherId)
+         .Select(tlw => tlw.LiteratureWork)
+         .ToListAsync();
         }
     }
 }

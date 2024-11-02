@@ -21,6 +21,6 @@ namespace LiteratureProject.Infrastructure.Data.Models
         [PersonalData]
         public string LastName { get; set; } = string.Empty;
 
-        public IEnumerable<LiteratureWork> LiteratureWorks { get; set; } = new List<LiteratureWork>();
+        public IEnumerable<TeacherLiteratureWork> TeacherLiteratureWorks { get; set; } = new List<TeacherLiteratureWork>();
     }
 }

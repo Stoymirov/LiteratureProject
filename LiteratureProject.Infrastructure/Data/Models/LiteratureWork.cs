@@ -19,5 +19,6 @@ namespace LiteratureProject.Data.Models
       
         [Comment("The purpose of this is to hold and differenciate all different parts of the analysis and make sure that no one long string as description is held in the database")]
         public IList<AnalysisPart> AnalysisParts { get; set; } = new List<AnalysisPart>();
+        public IList<TeacherLiteratureWork> TeacherLiteratureWorks { get; set; } = new List<TeacherLiteratureWork>();
     }
 }

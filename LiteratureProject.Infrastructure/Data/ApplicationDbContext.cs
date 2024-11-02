@@ -4,6 +4,7 @@ using LiteratureProject.Infrastructure.Data.Models;
 using LiteratureProject.Infrastructure.Data.SeedDb;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace LiteratureProject.Data
 {
@@ -29,6 +30,18 @@ namespace LiteratureProject.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<TeacherLiteratureWork>(builder =>
+            {
+                builder.HasKey(tlw => new { tlw.ApplicationUserId, tlw.LiteratureWorkId });
+
+                builder.HasOne(tlw => tlw.Teacher)
+                       .WithMany(u => u.TeacherLiteratureWorks) 
+                       .HasForeignKey(tlw => tlw.ApplicationUserId);
+
+                builder.HasOne(tlw => tlw.LiteratureWork)
+                       .WithMany(lw => lw.TeacherLiteratureWorks) 
+                       .HasForeignKey(tlw => tlw.LiteratureWorkId);
+            });
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new AnalysisPartConfiguration());
