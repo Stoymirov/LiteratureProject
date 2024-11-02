@@ -4,6 +4,7 @@ using LiteratureProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiteratureProject.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241102205815_AddedChangesInLitWork")]
+    partial class AddedChangesInLitWork
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,20 +50,6 @@ namespace LiteratureProject.Infrastructure.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("LiteratureWorks");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 3,
-                            AuthorId = 2,
-                            Name = "Балкански синдром"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            AuthorId = 1,
-                            Name = "Железният Светилник"
-                        });
                 });
 
             modelBuilder.Entity("LiteratureProject.Infrastructure.Data.Models.AnalysisPart", b =>
@@ -93,24 +82,6 @@ namespace LiteratureProject.Infrastructure.Migrations
                     b.HasIndex("LiteratureWorkId");
 
                     b.ToTable("AnalysisParts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            Content = "За една пиеса",
-                            LiteratureWorkId = 3,
-                            Name = "Име на творбата",
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = 1,
-                            Content = "Написана вчера",
-                            LiteratureWorkId = 3,
-                            Name = "История на Творбата",
-                            Type = 3
-                        });
                 });
 
             modelBuilder.Entity("LiteratureProject.Infrastructure.Data.Models.ApplicationUser", b =>
@@ -186,44 +157,6 @@ namespace LiteratureProject.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "dea12856-c198-4129-b3f3-b893d8395082",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c729d14b-30c6-4b1e-ad56-ce16ab1c1aeb",
-                            Email = "teacher@mail.com",
-                            EmailConfirmed = false,
-                            FirstName = "",
-                            LastName = "",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "teacher@mail.com",
-                            NormalizedUserName = "teacher@mail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAECmFtdoeBBGg8RnLJ3ZV7vwd3/pq7QoI7YTcrEIt7ydJzs68CHEWjww7ESSIfWXEYg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "125fd6dc-5e5c-449a-a1f1-4043db6fb17c",
-                            TwoFactorEnabled = false,
-                            UserName = "teacher@mail.com"
-                        },
-                        new
-                        {
-                            Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f1167ae1-768a-42c9-b395-32f5ca9493e5",
-                            Email = "student@mail.com",
-                            EmailConfirmed = false,
-                            FirstName = "",
-                            LastName = "",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "student@mail.com",
-                            NormalizedUserName = "student@mail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIbPKIfNPcA5qE7tBJiIIEzonV4wSAjBR0u0NCk8Cves1S4NszrZ3LDkEMLvPgJo3Q==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "2a2494df-6071-4da0-9152-052d4f1fb25d",
-                            TwoFactorEnabled = false,
-                            UserName = "guest@mail.com"
-                        });
                 });
 
             modelBuilder.Entity("LiteratureProject.Infrastructure.Data.Models.Author", b =>
@@ -241,23 +174,6 @@ namespace LiteratureProject.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Authors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Иван Вазов"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Алеко Константинов"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Станислав Стратиев"
-                        });
                 });
 
             modelBuilder.Entity("LiteratureProject.Infrastructure.Data.Models.StudentAnalysis", b =>
@@ -327,13 +243,6 @@ namespace LiteratureProject.Infrastructure.Migrations
                     b.HasIndex("LiteratureWorkId");
 
                     b.ToTable("UserLiteratureWorks");
-
-                    b.HasData(
-                        new
-                        {
-                            ApplicationUserId = "dea12856-c198-4129-b3f3-b893d8395082",
-                            LiteratureWorkId = 3
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

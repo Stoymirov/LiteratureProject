@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using LiteratureProject.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,21 +19,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-
+using static LiteratureProject.Infrastructure.DataConstants.ApplicationUserConstants;
 namespace LiteratureProject.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
        
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager
           )
         {
-            _userManager = userManager;
+            _userManager =    userManager;
 
             _signInManager = signInManager;
         }
@@ -62,6 +63,14 @@ namespace LiteratureProject.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [MaxLength(FirstNameMaxLength)]
+            [MinLength(FirstNameMinLength)]
+            public string FirstName { get; set; }
+            [Required]
+            [MaxLength(LastNameMaxLength)]
+            [MinLength(LastNameMinLength)]
+            public string LastName { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -104,16 +113,22 @@ namespace LiteratureProject.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                var user = new ApplicationUser()
+                {
+                    Email=Input.Email,
+                    UserName=Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName
+                };
+
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-                    
 
-                   
                         await _signInManager.SignInAsync(user, isPersistent: false);
+                    
                         return LocalRedirect(returnUrl);
                     
                 }
@@ -121,26 +136,15 @@ namespace LiteratureProject.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+               
             }
-
+           
             // If we got this far, something failed, redisplay form
             return Page();
         }
 
-        private IdentityUser CreateUser()
-        {
-            try
-            {
-                return Activator.CreateInstance<IdentityUser>();
-            }
-            catch
-            {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
-            }
-        }
+       
 
-        
+     
     }
 }

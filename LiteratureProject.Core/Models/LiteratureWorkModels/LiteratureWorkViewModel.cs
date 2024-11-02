@@ -1,10 +1,11 @@
 ﻿using LiteratureProject.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace LiteratureProject.Models
+namespace LiteratureProject.Core.Models
 {
     public class LiteratureWorkViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public int AuthorId { get; set; }
 

@@ -1,0 +1,117 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+}
+
+html {
+    font: 20px/1.5 "PT Sans",sans-serif;
+}
+
+body, button, input, textarea {
+    font: inherit;
+}
+
+body {
+    font-family: 'Lato',sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat',sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+nav {
+    background-color: #161d31;
+    display: flex;
+    justify-content: space-between;
+    padding: 2.3em 10em;
+}
+
+ul {
+    display: flex;
+    gap: 5em;
+    list-style: none;
+}
+
+nav a {
+    opacity: 0.7;
+}
+
+nav li:last-child a {
+    opacity: 1;
+}
+
+nav li:last-child {
+    border-radius: 2em;
+    border: 1px solid white;
+    padding: 1em 4em;
+}
+
+li {
+    display: flex;
+    align-items: center;
+}
+
+main {
+    background-color: #0f1934;
+}
+
+    main h1 {
+        font-size: 2.5em;
+    }
+
+    main * {
+        color: white;
+    }
+
+    main .wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+    }
+
+    main ul {
+        margin-top: 3em;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        gap: 1.4em;
+    }
+
+        main ul * {
+            font-size: 1.5rem;
+        }
+
+        main ul li {
+            border-radius: 1em;
+            border: 1px solid white;
+            padding: 1em 1.5em;
+        }
+
+    main h1 {
+        text-align: center;
+        margin-top: 3em;
+    }
+
+    main p {
+        width: 70%;
+        margin: 0 auto;
+        text-align: center;
+        opacity: 0.85;
+    }
+
+.imageWrapper {
+    text-align: center;
+}
+
+    .imageWrapper img {
+        height: 400px;
+        margin-top: 6em;
+    }

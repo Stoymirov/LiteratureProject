@@ -15,6 +15,7 @@ namespace LiteratureProject.Infrastructure.Data.Models
         [Required]
         [MaxLength(ContentMaxLength)]
         public string Content { get; set; } = string.Empty;
+        [Required]
         public int LiteratureWorkId { get; set; }
         [ForeignKey(nameof(LiteratureWorkId))]
         public LiteratureWork LiteratureWork { get; set; } = null!;

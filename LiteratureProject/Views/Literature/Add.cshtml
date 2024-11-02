@@ -1,4 +1,5 @@
-﻿@model LiteratureProject.Models.LiteratureWorkViewModel
+﻿@using LiteratureProject.Core.Models
+@model LiteratureProject.Core.Models.LiteratureWorkViewModel
 
 <h1>Add Literature Work</h1>
 
@@ -19,33 +20,22 @@
 
     <h3>Parts</h3>
     <div id="partsContainer">
-        @for (int i = 0; i < Model.Parts.Count; i++)
+        @{
+            // Define the predefined part names
+            var partNames = new List<string> { "TopicOfWork", "GoalOfWork", "Style", "HistoricalContent", "Themes" };
+        }
+
+        @for (int i = 0; i < partNames.Count; i++)
         {
             <div>
-                <label asp-for="Parts[i].Content">Part @i</label>
+                <label>@partNames[i]</label>
                 <input type="text" asp-for="Parts[i].Content" />
+                <input type="hidden" asp-for="Parts[i].Name" value="@partNames[i]" />
+                <input type="hidden" asp-for="Parts[i].Type" value="@partNames[i]" />
                 <span asp-validation-for="Parts[i].Content" class="text-danger"></span>
             </div>
         }
     </div>
 
-    <button type="button" onclick="addPart()">Add Part</button>
-
     <button type="submit">Add Literature Work</button>
 </form>
-
-@section Scripts {
-    <script>
-        function addPart() {
-            const container = document.getElementById('partsContainer');
-            const index = container.children.length;
-            const newPartHtml = `
-                <div>
-                    <label for="Parts_${index}__Content">Part ${index + 1}</label>
-                    <input type="text" name="Parts[${index}].Content" />
-                </div>
-            `;
-            container.insertAdjacentHTML('beforeend', newPartHtml);
-        }
-    </script>
-}

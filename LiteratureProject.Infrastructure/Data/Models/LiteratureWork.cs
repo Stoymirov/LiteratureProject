@@ -16,8 +16,8 @@ namespace LiteratureProject.Data.Models
         [ForeignKey(nameof(AuthorId))]
         public Author Author { get; set; }
 
-        public IEnumerable<ApplicationUser> CreatorsOfAnalysis { get; set; } = new List<ApplicationUser>();
+      
         [Comment("The purpose of this is to hold and differenciate all different parts of the analysis and make sure that no one long string as description is held in the database")]
-        public IEnumerable<AnalysisPart> AnalysisParts { get; set; } = new List<AnalysisPart>();
+        public IList<AnalysisPart> AnalysisParts { get; set; } = new List<AnalysisPart>();
     }
 }

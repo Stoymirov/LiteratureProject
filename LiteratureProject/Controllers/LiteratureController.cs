@@ -3,12 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using LiteratureProject.Core.Services;
 using LiteratureProject.Core.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using LiteratureProject.Core.Contracts;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
+using LiteratureProject;
+using LiteratureProject.Core.Models.LiteratureWorkModels;
+using LiteratureProject.Extensions;
+
 namespace LiteratureProject.Controllers
 {
     public class LiteratureController : Controller
     {
-        private LiteratureWorkService service;
-        public LiteratureController(LiteratureWorkService service)
+        private ILiteratureWorkService service;
+        public LiteratureController(ILiteratureWorkService service)
         {
             this.service = service;
         }
@@ -31,6 +37,58 @@ namespace LiteratureProject.Controllers
                     Text = a.Name
                 }).ToList()
             };
+
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Add(LiteratureWorkViewModel model)
+        {
+            if (await service.AuthorExistsAsync(model.AuthorId) == false)
+            {
+                ModelState.AddModelError(nameof(model.AuthorId), "Author does not exist");
+            }
+         
+            //if (ModelState.IsValid == false)
+            //{
+            //    foreach (var key in ModelState.Keys)
+            //    {
+            //        var state = ModelState[key];
+            //        foreach (var error in state.Errors)
+            //        {
+            //            Console.WriteLine($"Error in '{key}': {error.ErrorMessage}");
+            //        }
+            //    }
+
+            //    var authors = await service.GetAuthorsAsync();
+            //    model.Authors = authors.Select(a => new SelectListItem
+            //    {
+            //        Value = a.Id.ToString(),
+            //        Text = a.Name
+            //    }).ToList();
+
+            //    return View(model);
+            //}
+
+
+
+            int newLiteratureWork = await service.CreateAsync(model);
+           
+            return RedirectToAction(nameof(Mine));
+        }
+        public async Task<IActionResult> All()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Mine()
+        {
+            var teacherId = User.Id();
+            var literatureWorks = await service.AllLiteratureWorksByTeacherId(teacherId); 
+            var model = literatureWorks.Select(lw => new LiteratureWorkDisplayViewModel
+            {
+                Id = lw.Id,
+                Name = lw.Name,
+                AuthorName = lw.Author.Name
+            }).ToList();
 
             return View(model);
         }

@@ -1,19 +1,22 @@
 using LiteratureProject.Data;
+using LiteratureProject.Infrastructure.Data.Models;
 using LiteratureProject.Infrastructure.Seed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using LiteratureProject.Extensions;
+using HouseRentingSystem.Infrastructure.Data.SeedDb;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddApplicationDbContext(builder.Configuration);
+builder.Services.AddApplicationIdentity(builder.Configuration);
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddApplicationServices();
+SeedData data = new SeedData();
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("TeacherOnly", policy => policy.RequireClaim("TeacherName"));
+//});
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -22,6 +25,8 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     await RoleSeeder.SeedRolesAsync(services); // Seed roles
+    
+  
 }
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

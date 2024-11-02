@@ -1,5 +1,7 @@
-﻿using LiteratureProject.Data.Models;
+﻿using HouseRentingSystem.Infrastructure.Data.SeedDb;
+using LiteratureProject.Data.Models;
 using LiteratureProject.Infrastructure.Data.Models;
+using LiteratureProject.Infrastructure.Data.SeedDb;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,5 +25,20 @@ namespace LiteratureProject.Data
         public DbSet<StudentAnalysis> StudentAnalyses { get; set; }
         public DbSet<StudentWorkComponent> StudentWorkComponents { get; set; }
         public DbSet<TeacherLiteratureWork> UserLiteratureWorks { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new AnalysisPartConfiguration());
+            builder.ApplyConfiguration(new AuthorConfiguration());
+
+            builder.ApplyConfiguration(new LiteratureWorkConfiguration());
+
+            builder.ApplyConfiguration(new TeacherLiteratureWorkConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+
+        }
     }
 }
