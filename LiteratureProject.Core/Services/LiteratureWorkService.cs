@@ -11,6 +11,8 @@ using Microsoft.Identity;
 using LiteratureProject.Data.Models;
 using LiteratureProject.Infrastructure.Data.Models;
 using Microsoft.IdentityModel.Tokens;
+using LiteratureProject.Core.Models.LiteratureWorkModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 namespace LiteratureProject.Core.Services
 {
     public class LiteratureWorkService:ILiteratureWorkService
@@ -85,6 +87,76 @@ namespace LiteratureProject.Core.Services
          .Where(tlw => tlw.ApplicationUserId == teacherId)
          .Select(tlw => tlw.LiteratureWork)
          .ToListAsync();
+        }
+
+        public async Task<LiteratureWorkDetailsViewModel> GetWorkByIdAsync(int id, int part)
+        {
+            var literatureWork = await context.LiteratureWorks
+             .Include(lw => lw.Author)
+             .Include(lw => lw.AnalysisParts)
+             .Include(lw => lw.TeacherLiteratureWorks)
+                 .ThenInclude(tlw => tlw.Teacher)
+             .FirstOrDefaultAsync(lw => lw.Id == id);
+
+            if (literatureWork == null)
+            {
+                return null; 
+            }
+
+            var teacherName = literatureWork.TeacherLiteratureWorks.FirstOrDefault()?.Teacher.FirstName;
+
+            var model = new LiteratureWorkDetailsViewModel
+            {
+                Id = literatureWork.Id,
+                Name = literatureWork.Name,
+                AuthorName = literatureWork.Author.Name,
+                TeacherName = teacherName,
+                AnalysisParts = literatureWork.AnalysisParts.ToList(),
+                CurrentPart = part
+            };
+
+            return model;
+        }
+
+        public async Task<bool> WorkExistsAsync(int workId)
+        {
+            return await context.LiteratureWorks.AnyAsync(x => x.Id == workId);
+            
+        }
+
+        public async Task<LiteratureWorkViewModel> GetLiteratureWorkViewModelById(int id)
+        {
+            var literatureWork = await context.LiteratureWorks
+        .Include(lw => lw.Author)
+        .Include(lw => lw.TeacherLiteratureWorks)
+            .ThenInclude(tlw => tlw.Teacher)
+        .Include(lw => lw.AnalysisParts) 
+        .FirstOrDefaultAsync(lw => lw.Id == id);
+
+            if (literatureWork == null)
+            {
+                return null;
+            }
+
+            var allAuthors = await context.Authors
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                })
+                
+                .ToListAsync();
+            return new LiteratureWorkViewModel
+            {
+                Id = literatureWork.Id,
+                Name = literatureWork.Name,
+                AuthorId = literatureWork.AuthorId,
+                TeacherId = literatureWork.TeacherLiteratureWorks.Where(x => x.LiteratureWorkId == id).Select(x => x.Teacher.Id).FirstOrDefault()
+                ,
+                Parts = literatureWork.AnalysisParts.ToList()
+                ,
+                Authors = allAuthors
+            };
         }
     }
 }

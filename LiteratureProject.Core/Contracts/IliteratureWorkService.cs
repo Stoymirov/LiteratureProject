@@ -1,4 +1,5 @@
 ﻿using LiteratureProject.Core.Models;
+using LiteratureProject.Core.Models.LiteratureWorkModels;
 using LiteratureProject.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,10 @@ namespace LiteratureProject.Core.Contracts
         public Task<bool> AuthorExistsAsync(int authorId);
         public Task<int> CreateAsync(LiteratureWorkViewModel literatureWork,string teacherId);
         public Task<IEnumerable<LiteratureWork>> AllLiteratureWorksByTeacherId(string teacherId);
-        
+
+        public Task<LiteratureWorkDetailsViewModel> GetWorkByIdAsync(int id, int part);
+        public Task<bool> WorkExistsAsync(int workId);
+        public Task<LiteratureWorkViewModel> GetLiteratureWorkViewModelById(int id);
+       
     }
 }

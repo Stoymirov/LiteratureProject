@@ -47,6 +47,8 @@ namespace LiteratureProject.Controllers
             {
                 ModelState.AddModelError(nameof(model.AuthorId), "Author does not exist");
             }
+            //this validation could not be added due to logical reasons.
+
 
             //if (ModelState.IsValid == false)
             //{
@@ -93,6 +95,27 @@ namespace LiteratureProject.Controllers
                 .FirstOrDefault()
             }).ToList();
 
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(int id,int part = 1)
+        {
+
+            var model = await service.GetWorkByIdAsync(id, part);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> Edit(int id)
+        {
+            if(!await service.WorkExistsAsync(id))
+            {
+                return BadRequest();
+            }
+            var model =await service.GetLiteratureWorkViewModelById(id);
             return View(model);
         }
     }

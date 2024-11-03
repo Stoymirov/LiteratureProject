@@ -1,0 +1,43 @@
+﻿
+@model LiteratureProject.Core.Models.LiteratureWorkViewModel
+
+<h1>Edit Literature Work</h1>
+
+<form asp-action="Edit" method="post">
+    <div>
+        <label asp-for="Name">Literature Work Name</label>
+        <input type="text" asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="AuthorId">Author</label>
+        <select asp-for="AuthorId" asp-items="Model.Authors">
+            <option value="">Select an Author</option>
+        </select>
+        <span asp-validation-for="AuthorId" class="text-danger"></span>
+    </div>
+
+    <h3>Parts</h3>
+    <div id="partsContainer">
+        @{
+            // Predefined part names
+            var partNames = new List<string> { "TopicOfWork", "GoalOfWork", "Style", "HistoricalContent", "Themes" };
+        }
+
+        @for (int i = 0; i < partNames.Count; i++)
+        {
+            var partContent = Model.Parts.FirstOrDefault(p => p.Name == partNames[i])?.Content;
+
+            <div>
+                <label>@partNames[i]</label>
+                <input type="text" name="Parts[@i].Content" value="@partContent" />
+                <input type="hidden" name="Parts[@i].Name" value="@partNames[i]" />
+                <input type="hidden" name="Parts[@i].Type" value="@partNames[i]" />
+                <span asp-validation-for="Parts[i].Content" class="text-danger"></span>
+            </div>
+        }
+    </div>
+
+    <button type="submit">Save Changes</button>
+</form>

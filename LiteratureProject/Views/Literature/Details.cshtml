@@ -1,0 +1,41 @@
+﻿@model LiteratureProject.Core.Models.LiteratureWorkModels.LiteratureWorkDetailsViewModel
+
+<h2>@Model.Name</h2>
+<p>Author: @Model.AuthorName</p>
+<p>Teacher: @Model.TeacherName</p>
+
+<div>
+    @if (Model.AnalysisParts != null && Model.AnalysisParts.Count > 0)
+
+    {
+
+        var partCount = Model.AnalysisParts.Count;
+
+        var currentPartIndex = Model.CurrentPart - 1;
+
+
+
+        if (currentPartIndex >= 0 && currentPartIndex < partCount)
+
+        {
+            <h3>Part @Model.CurrentPart: @Model.AnalysisParts[currentPartIndex].Type</h3>
+            <p>@Model.AnalysisParts[currentPartIndex].Content</p>
+        }
+
+
+
+        <div class="pagination">
+            @for (int i = 1; i <= partCount; i++)
+
+            {
+                <a asp-action="Details" asp-route-id="@Model.Id" asp-route-part="@i"
+                   class="@(Model.CurrentPart == i ? "active" : "")">@i</a>
+            }
+        </div>
+    }
+</div>
+<div>
+    <a href="@Url.Action("Edit", "Literature", new { id = Model.Id })" class="btn btn-primary mt-3">
+      Edit Work
+    </a>
+</div>
