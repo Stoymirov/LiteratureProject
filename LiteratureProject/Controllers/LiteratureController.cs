@@ -47,7 +47,7 @@ namespace LiteratureProject.Controllers
             {
                 ModelState.AddModelError(nameof(model.AuthorId), "Author does not exist");
             }
-         
+
             //if (ModelState.IsValid == false)
             //{
             //    foreach (var key in ModelState.Keys)
@@ -69,9 +69,9 @@ namespace LiteratureProject.Controllers
             //    return View(model);
             //}
 
+            string userId = User.Id();
 
-
-            int newLiteratureWork = await service.CreateAsync(model);
+            int newLiteratureWork = await service.CreateAsync(model,userId);
            
             return RedirectToAction(nameof(Mine));
         }
@@ -87,7 +87,10 @@ namespace LiteratureProject.Controllers
             {
                 Id = lw.Id,
                 Name = lw.Name,
-                AuthorName = lw.Author.Name
+                AuthorName = lw.Author.Name,
+                TeacherName = lw.TeacherLiteratureWorks.Where(x=>x.Teacher.Id ==teacherId)
+                .Select(x=>x.Teacher.FirstName)
+                .FirstOrDefault()
             }).ToList();
 
             return View(model);

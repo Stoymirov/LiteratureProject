@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 using LiteratureProject.Core.Models;
 using LiteratureProject.Core.Contracts;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Identity;
 using LiteratureProject.Data.Models;
-using LiteratureProject.Infrastructure.Data.Models; 
+using LiteratureProject.Infrastructure.Data.Models;
+using Microsoft.IdentityModel.Tokens;
 namespace LiteratureProject.Core.Services
 {
     public class LiteratureWorkService:ILiteratureWorkService
@@ -33,7 +34,7 @@ namespace LiteratureProject.Core.Services
         {
             return await context.Authors.AnyAsync(x => x.Id == authorId);
         }
-        public async Task<int> CreateAsync(LiteratureWorkViewModel model)
+        public async Task<int> CreateAsync(LiteratureWorkViewModel model,string teacherId)
         {
             var literatureWork = new LiteratureWork
             {
@@ -62,7 +63,13 @@ namespace LiteratureProject.Core.Services
                 await context.SaveChangesAsync();
             }
 
-           
+            var teacherLiteratureWork = new TeacherLiteratureWork
+            {
+                ApplicationUserId = teacherId, 
+                LiteratureWorkId = literatureWork.Id
+            };
+            context.Set<TeacherLiteratureWork>().Add(teacherLiteratureWork);
+            await context.SaveChangesAsync();
             return literatureWork.Id;
 
         }
@@ -70,6 +77,11 @@ namespace LiteratureProject.Core.Services
         public async Task<IEnumerable<LiteratureWork>> AllLiteratureWorksByTeacherId(string teacherId)
         {
             return await context.UserLiteratureWorks
+                .Include(x => x.LiteratureWork.Author)
+              .Include(x => x.LiteratureWork)
+            .ThenInclude(lw => lw.TeacherLiteratureWorks)
+                .ThenInclude(tlw => tlw.Teacher)
+                
          .Where(tlw => tlw.ApplicationUserId == teacherId)
          .Select(tlw => tlw.LiteratureWork)
          .ToListAsync();

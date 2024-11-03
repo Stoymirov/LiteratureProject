@@ -1,1 +1,38 @@
-﻿
+﻿@model IEnumerable<LiteratureProject.Core.Models.LiteratureWorkModels.LiteratureWorkDisplayViewModel>
+
+@{
+    ViewData["Title"] = "Literature Works";
+}
+
+<h2>Literature Works</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (var work in Model)
+        {
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@work.Name</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Author: @work.AuthorName</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Teacher: @work.TeacherName</h6>
+                        <a href="@Url.Action("Details", "LiteratureWork", new { id = work.Id })" class="btn btn-primary mt-3">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .card {
+        height: 100%;
+    }
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+</style>

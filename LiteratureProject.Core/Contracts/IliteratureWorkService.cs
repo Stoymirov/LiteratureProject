@@ -11,7 +11,7 @@ namespace LiteratureProject.Core.Contracts
     {
         public Task<IEnumerable<AuthorServiceModel>> GetAuthorsAsync();
         public Task<bool> AuthorExistsAsync(int authorId);
-        public Task<int> CreateAsync(LiteratureWorkViewModel literatureWork);
+        public Task<int> CreateAsync(LiteratureWorkViewModel literatureWork,string teacherId);
         public Task<IEnumerable<LiteratureWork>> AllLiteratureWorksByTeacherId(string teacherId);
         
     }
