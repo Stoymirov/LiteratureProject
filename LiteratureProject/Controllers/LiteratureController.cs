@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using LiteratureProject;
 using LiteratureProject.Core.Models.LiteratureWorkModels;
 using LiteratureProject.Extensions;
+using Microsoft.EntityFrameworkCore.Migrations.Internal;
 
 namespace LiteratureProject.Controllers
 {
@@ -109,6 +110,7 @@ namespace LiteratureProject.Controllers
             }
             return View(model);
         }
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             if(!await service.WorkExistsAsync(id))
@@ -118,5 +120,25 @@ namespace LiteratureProject.Controllers
             var model =await service.GetLiteratureWorkViewModelById(id);
             return View(model);
         }
+        [HttpPost]
+        public async Task<IActionResult> Edit( LiteratureWorkViewModel model)
+        {
+            if (await service.AuthorExistsAsync(model.AuthorId) == false)
+            {
+                ModelState.AddModelError(nameof(model.AuthorId), "Author does not exist");
+            }
+
+            string userId = User.Id();
+
+            var literatureModel = await service.GetLiteratureWorkNormalByIdAsync(model.Id);
+            if (literatureModel == null)
+            {
+                return NotFound(); 
+            }
+          await service.EditAsync(model);
+            return RedirectToAction(nameof(Mine));
+          
+        }
+        
     }
 }

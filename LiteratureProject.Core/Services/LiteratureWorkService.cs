@@ -158,5 +158,33 @@ namespace LiteratureProject.Core.Services
                 Authors = allAuthors
             };
         }
+
+        public async Task<LiteratureWork> GetLiteratureWorkNormalByIdAsync(int id)
+        {
+            return await context.LiteratureWorks.FindAsync(id);
+        }
+
+        public async Task EditAsync(LiteratureWorkViewModel model)
+        {
+            var literatureModel = await context.LiteratureWorks.Include(lw => lw.AnalysisParts)
+                .FirstOrDefaultAsync(x=>x.Id ==model.Id);
+
+            if (literatureModel != null)
+            {
+                literatureModel.AuthorId = model.AuthorId;
+
+                literatureModel.Name = model.Name;
+                foreach (var part in literatureModel.AnalysisParts)
+                {
+                    var updatedPart = model.Parts.FirstOrDefault(x => x.Id == part.Id);
+                    if (updatedPart != null)
+                    {
+                        part.Content = updatedPart.Content;
+                    }
+                }
+
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

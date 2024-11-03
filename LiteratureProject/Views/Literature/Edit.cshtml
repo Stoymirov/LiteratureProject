@@ -27,13 +27,16 @@
 
         @for (int i = 0; i < partNames.Count; i++)
         {
-            var partContent = Model.Parts.FirstOrDefault(p => p.Name == partNames[i])?.Content;
+            var part = Model.Parts.FirstOrDefault(p => p.Name == partNames[i]);
+            var partContent = part?.Content;
+            var partId = part?.Id;
 
             <div>
                 <label>@partNames[i]</label>
                 <input type="text" name="Parts[@i].Content" value="@partContent" />
                 <input type="hidden" name="Parts[@i].Name" value="@partNames[i]" />
                 <input type="hidden" name="Parts[@i].Type" value="@partNames[i]" />
+                <input type="hidden" name="Parts[@i].Id" value="@part.Id" />
                 <span asp-validation-for="Parts[i].Content" class="text-danger"></span>
             </div>
         }
