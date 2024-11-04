@@ -21,5 +21,7 @@ namespace LiteratureProject.Core.Contracts
         public Task<LiteratureWorkViewModel> GetLiteratureWorkViewModelById(int id);
         public Task<LiteratureWork> GetLiteratureWorkNormalByIdAsync(int id);
         public Task EditAsync(LiteratureWorkViewModel model);
+        public Task<bool> DeleteWorkAsync(int workId);
+       
     }
 }

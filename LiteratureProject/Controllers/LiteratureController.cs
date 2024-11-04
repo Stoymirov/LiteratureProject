@@ -139,6 +139,30 @@ namespace LiteratureProject.Controllers
             return RedirectToAction(nameof(Mine));
           
         }
-        
+        [HttpGet]
+        public async Task<IActionResult> Delete(int workId)
+        {
+            var model = await service.GetLiteratureWorkNormalByIdAsync(workId);
+            var viewModel = new LiteratureWorkDisplayViewModel()
+            {
+                AuthorName = model.Author.Name,
+                Id = model.Id,
+                Name = model.Name,
+                TeacherName = model.TeacherLiteratureWorks.Select(x => x.Teacher.FirstName).FirstOrDefault()
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var success = await service.DeleteWorkAsync(id);
+            if (success)
+            {
+                return RedirectToAction(nameof(Mine));
+            }
+            return View(); 
+        }
     }
 }

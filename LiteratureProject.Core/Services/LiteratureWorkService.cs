@@ -83,8 +83,7 @@ namespace LiteratureProject.Core.Services
               .Include(x => x.LiteratureWork)
             .ThenInclude(lw => lw.TeacherLiteratureWorks)
                 .ThenInclude(tlw => tlw.Teacher)
-                
-         .Where(tlw => tlw.ApplicationUserId == teacherId)
+         .Where(tlw => tlw.ApplicationUserId == teacherId && tlw.LiteratureWork.IsDeleted ==false)
          .Select(tlw => tlw.LiteratureWork)
          .ToListAsync();
         }
@@ -185,6 +184,17 @@ namespace LiteratureProject.Core.Services
 
                 await context.SaveChangesAsync();
             }
+        }
+
+        public async Task<bool> DeleteWorkAsync(int workId)
+        {
+            var house =await context.LiteratureWorks.FirstOrDefaultAsync(x => x.Id == workId);
+            if(house != null)
+            {
+                house.IsDeleted = true;
+                return true;
+            }
+            return false;
         }
     }
 }

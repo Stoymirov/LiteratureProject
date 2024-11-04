@@ -1,0 +1,11 @@
+﻿@model LiteratureProject.Core.Models.LiteratureWorkModels.LiteratureWorkDisplayViewModel
+
+
+<h1>Delete Literature Work</h1>
+
+<p>Are you sure you want to delete the literature work titled "<strong>@Model.Name</strong>" by <strong>@Model.TeacherName</strong>?</p>
+
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
