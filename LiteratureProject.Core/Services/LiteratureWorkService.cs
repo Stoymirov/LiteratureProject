@@ -188,10 +188,11 @@ namespace LiteratureProject.Core.Services
 
         public async Task<bool> DeleteWorkAsync(int workId)
         {
-            var house =await context.LiteratureWorks.FirstOrDefaultAsync(x => x.Id == workId);
-            if(house != null)
+            var work =await context.LiteratureWorks.FirstOrDefaultAsync(x => x.Id == workId);
+            if(work != null)
             {
-                house.IsDeleted = true;
+                work.IsDeleted = true;
+              await  context.SaveChangesAsync();
                 return true;
             }
             return false;

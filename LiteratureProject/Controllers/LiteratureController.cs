@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Migrations.Internal;
 
 namespace LiteratureProject.Controllers
 {
-    public class LiteratureController : Controller
+    public class LiteratureController : BaseController
     {
         private ILiteratureWorkService service;
         public LiteratureController(ILiteratureWorkService service)
@@ -145,10 +145,10 @@ namespace LiteratureProject.Controllers
             var model = await service.GetLiteratureWorkNormalByIdAsync(workId);
             var viewModel = new LiteratureWorkDisplayViewModel()
             {
-                AuthorName = model.Author.Name,
+                
                 Id = model.Id,
-                Name = model.Name,
-                TeacherName = model.TeacherLiteratureWorks.Select(x => x.Teacher.FirstName).FirstOrDefault()
+                Name = model.Name
+               
             };
             return View(viewModel);
         }
