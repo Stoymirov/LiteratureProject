@@ -1,1 +1,27 @@
-﻿
+﻿@using LiteratureProject.Infrastructure.Data.Enums
+@model LiteratureProject.Core.Models.BulgarianModels.DeckFormModel
+
+<h2>Add New Deck</h2>
+
+<form asp-action="AddDeck" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CreatedBy">Created By</label>
+        <input asp-for="CreatedBy" class="form-control" />
+        <span asp-validation-for="CreatedBy" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SelectedTopic">Topic</label>
+        <select asp-for="SelectedTopic" asp-items="Html.GetEnumSelectList<BulgarianDeckTopic>()" class="form-control">
+            <option value="">Select a topic</option>
+        </select>
+        <span asp-validation-for="SelectedTopic" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

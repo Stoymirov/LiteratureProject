@@ -12,6 +12,6 @@ namespace LiteratureProject.Core.Models.BulgarianModels
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string CreatedBy { get; set; } = string.Empty;
-        public BulgarianDeckTopic Topic { get; set; }
+        public BulgarianDeckTopic SelectedTopic { get; set; }
     }
 }
