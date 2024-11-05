@@ -13,6 +13,7 @@ namespace LiteratureProject.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<ILiteratureWorkService, LiteratureWorkService>();
+            services.AddScoped<IBulgarianService, BulgarianService>();
             return services;
         }
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)

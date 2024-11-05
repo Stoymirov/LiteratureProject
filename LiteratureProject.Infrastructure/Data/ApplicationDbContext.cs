@@ -1,6 +1,7 @@
 ﻿using HouseRentingSystem.Infrastructure.Data.SeedDb;
 using LiteratureProject.Data.Models;
 using LiteratureProject.Infrastructure.Data.Models;
+using LiteratureProject.Infrastructure.Data.Models.BulgarianModels;
 using LiteratureProject.Infrastructure.Data.SeedDb;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,8 @@ namespace LiteratureProject.Data
         public DbSet<StudentWorkComponent> StudentWorkComponents { get; set; }
         public DbSet<TeacherLiteratureWork> UserLiteratureWorks { get; set; }
 
-
+        public DbSet<DeckOfBulgarianProblems> DecksOfBulgarianProblems { get; set; }
+        public DbSet<BulgarianProblem> BulgarianProblems { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<TeacherLiteratureWork>(builder =>
