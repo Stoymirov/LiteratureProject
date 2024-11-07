@@ -6,5 +6,6 @@ namespace LiteratureProject.Controllers
     [Authorize]
     public class BaseController:Controller
     {
+     
     }
 }
