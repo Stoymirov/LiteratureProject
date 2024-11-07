@@ -10,6 +10,7 @@ namespace LiteratureProject.Infrastructure.Data.Models.BulgarianModels
 {
     public class BulgarianProblem
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         public string Question { get; set; } = string.Empty;

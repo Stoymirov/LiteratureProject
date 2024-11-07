@@ -4,6 +4,7 @@ using LiteratureProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiteratureProject.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241107072706_AddedKey")]
+    partial class AddedKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,7 +195,7 @@ namespace LiteratureProject.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "af704ce5-e58a-4605-b63d-24cd1e01bdff",
+                            ConcurrencyStamp = "587a3d44-9d0a-402c-a49d-8f8d198a7818",
                             Email = "teacher@mail.com",
                             EmailConfirmed = false,
                             FirstName = "",
@@ -200,9 +203,9 @@ namespace LiteratureProject.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "teacher@mail.com",
                             NormalizedUserName = "teacher@mail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKokM7a8HQ1bDALyfhagPQBJ55gx7Vu+yFV1/1b9LG/kM2XGSluGRj47HfLzIKgXEQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBSo2VUsve1MNZDZtHQw/d10htALzWew+8JKaMueKMZihqJolKs2TTJxQ+IL7EhI2Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d5d74be4-7aa5-4a16-99d0-c1b6708a49f4",
+                            SecurityStamp = "6a7fd7ed-e25e-40dc-8d6e-e4cb8b502411",
                             TwoFactorEnabled = false,
                             UserName = "teacher@mail.com"
                         },
@@ -210,7 +213,7 @@ namespace LiteratureProject.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "21d23dd2-5b23-4d4b-94db-02af1be4a66b",
+                            ConcurrencyStamp = "f03d79b6-29ca-4267-bdb3-42da461898f3",
                             Email = "student@mail.com",
                             EmailConfirmed = false,
                             FirstName = "",
@@ -218,9 +221,9 @@ namespace LiteratureProject.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "student@mail.com",
                             NormalizedUserName = "student@mail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAENZ3zJaDY9OzyZM4f+yApUCaADkOn8YWkeVsSEIuEAuhqcg1TQgFgigYsFfTeKZLSQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBQ/RJ+wOruwnyF0m79ECFLyTRRBwkHXmCvmSo6mDP0UsD9g2PtwPAeNOJM7jhBWCA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9be063ed-d2ac-4b08-9163-9ed006d83871",
+                            SecurityStamp = "ec37c78c-6ef4-4e7b-96e4-fff210b15570",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -582,7 +585,7 @@ namespace LiteratureProject.Infrastructure.Migrations
                     b.HasOne("LiteratureProject.Infrastructure.Data.Models.BulgarianModels.DeckOfBulgarianProblems", "Deck")
                         .WithMany("BulgarianProblems")
                         .HasForeignKey("DeckOfProblemsId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Deck");

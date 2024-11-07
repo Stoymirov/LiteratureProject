@@ -2,6 +2,7 @@
 using LiteratureProject.Core.Models.BulgarianModels;
 using LiteratureProject.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LiteratureProject.Controllers
 {
@@ -44,27 +45,46 @@ namespace LiteratureProject.Controllers
 
             return View();
         }
+        [HttpGet]
         public async Task<IActionResult> MyDecks()
         {
             string userId = User.Id();
 
             var decks = await service.GetAllDecksByUserId(userId);
 
-            var model = decks.Select(x=> new DeckDisplayModel)
-            return View(decks);
+            var model = decks.Select(x => new DeckDisplayModel
+            {
+                CreatedBy = x.CreatedBy,
+                Id = x.Id,
+                Name = x.Name,
+                Topic = x.Topic
+            }).ToList();
+            return View(model);
         }
         [HttpGet]
         public async Task<IActionResult> AddProblem()
         {
             string userId = User.Id();
+            var myDecks = await service.GetAllDecksByUserId(userId);
 
-            var model = new ProblemFormModel();
+            var model = new ProblemFormModel
+            {
+                DeckOptions = myDecks.Select(deck => new SelectListItem
+                {
+                    Value = deck.Id.ToString(),
+                    Text = deck.Name
+                }).ToList()
+            };
+
+
             return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> AddProblem(ProblemFormModel model)
         {
+            
             var id = await service.AddProblemAsync(model);
+           
             return View(nameof(MyDeck), new {id=model.DeckOfProblemsId});
         }
     }

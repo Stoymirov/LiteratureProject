@@ -32,6 +32,11 @@ namespace LiteratureProject.Data
         public DbSet<BulgarianProblem> BulgarianProblems { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<BulgarianProblem>()
+    .HasOne(bp => bp.Deck)
+    .WithMany(d => d.BulgarianProblems)
+    .HasForeignKey(bp => bp.DeckOfProblemsId)
+    .OnDelete(DeleteBehavior.NoAction);
             builder.Entity<TeacherLiteratureWork>(builder =>
             {
                 builder.HasKey(tlw => new { tlw.ApplicationUserId, tlw.LiteratureWorkId });

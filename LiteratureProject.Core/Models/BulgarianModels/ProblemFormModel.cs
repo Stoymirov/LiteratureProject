@@ -35,9 +35,7 @@ namespace LiteratureProject.Core.Models.BulgarianModels
 
         public string Explanation { get; set; } = string.Empty;
         public int DeckOfProblemsId { get; set; }
-        [ForeignKey(nameof(DeckOfProblemsId))]
-        public DeckOfBulgarianProblems Deck { get; set; }
-
+      
         public List<SelectListItem> DeckOptions { get; set; } = new List<SelectListItem>();
     }
 }
