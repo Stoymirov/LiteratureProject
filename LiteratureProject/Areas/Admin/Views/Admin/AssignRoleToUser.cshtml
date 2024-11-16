@@ -1,0 +1,17 @@
+﻿@model LiteratureProject.Areas.Admin.Models.AssignRoleViewModel
+
+<h2>Assign Role to User</h2>
+
+<form asp-action="AssignRoleToUser" method="post">
+    <div>
+        <label for="userSelect">Select User:</label>
+        <select id="userSelect" asp-for="SelectedUserId" asp-items="Model.Users" class="form-control"></select>
+    </div>
+
+    <div>
+        <label for="roleSelect">Select Role:</label>
+        <select id="roleSelect" asp-for="SelectedRole" asp-items="Model.Roles" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Assign Role</button>
+</form>
