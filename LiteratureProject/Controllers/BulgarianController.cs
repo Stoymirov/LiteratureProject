@@ -90,10 +90,10 @@ namespace LiteratureProject.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProblem(ProblemFormModel model)
         {
-            
+
             var id = await service.AddProblemAsync(model);
-           
-            return View(nameof(MyDeck), new {id=model.DeckOfProblemsId});
+
+            return RedirectToAction(nameof(MyDeck), new { id = model.DeckOfProblemsId });
         }
         [HttpGet]
         public async Task<IActionResult> ProblemsWithDeckId(int deckId, int pageNumber =1)
