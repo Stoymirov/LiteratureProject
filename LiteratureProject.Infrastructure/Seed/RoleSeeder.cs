@@ -23,6 +23,9 @@ namespace LiteratureProject.Infrastructure.Seed
                     await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
+
+           
+
         }
     }
 }
