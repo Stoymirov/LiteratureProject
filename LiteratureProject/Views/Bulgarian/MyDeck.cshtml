@@ -10,8 +10,8 @@
     <p><strong>Created By:</strong> @Model.CreatedBy</p>
     <p><strong>Topic:</strong> @Model.Topic</p>
 
-    <form asp-action="ProblemsWithDeckId" asp-route-id ="@Model.Id" asp-controller="Bulgaria" method="get">
-        <input type="hidden" name="id" value="@Model.Id" />
+    <form action="@Url.Action("ProblemsWithDeckId", "Bulgarian")" method="get">
+        <input type="hidden" name="deckId" value="@Model.Id" />
         <button type="submit" class="btn btn-danger">View All Problems</button>
     </form>
 

@@ -96,9 +96,28 @@ namespace LiteratureProject.Controllers
             return View(nameof(MyDeck), new {id=model.DeckOfProblemsId});
         }
         [HttpGet]
-        public async Task<IActionResult> ProblemsWithDeckId(int deckId)
+        public async Task<IActionResult> ProblemsWithDeckId(int deckId, int pageNumber =1)
         {
             var problems =await service.GetProblemsByDeckIdAsync(deckId);
+            var totalProblems = problems.Count();
+
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageNumber > totalProblems) pageNumber = totalProblems;
+
+            var problem = problems
+                .Skip((pageNumber - 1)) 
+                .Take(1)               
+                .FirstOrDefault();
+
+            var viewModel = new SingleProblemDisplayModel
+            {
+                Problem = problem,
+                CurrentPage = pageNumber,
+                TotalPages = totalProblems,
+                DeckId = deckId
+            };
+
+            return View(viewModel);
            
         }
     }

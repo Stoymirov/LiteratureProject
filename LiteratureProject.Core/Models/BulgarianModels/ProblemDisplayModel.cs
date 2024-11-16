@@ -25,7 +25,7 @@ namespace LiteratureProject.Core.Models.BulgarianModels
 
         public string Answer4 { get; set; } = string.Empty;
 
-
+   
 
     }
 }
