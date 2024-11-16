@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Internal;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,6 +83,21 @@ namespace LiteratureProject.Core.Services
                 .Include(x=>x.BulgarianProblems)
                 .FirstOrDefaultAsync();
             return model;
+        }
+
+       public async Task<IEnumerable<ProblemDisplayModel>> GetProblemsByDeckIdAsync(int deckId)
+        {
+           var problems = await context.BulgarianProblems.Where(x=>x.DeckOfProblemsId == deckId).ToListAsync();
+            var models = problems.Select(x => new ProblemDisplayModel()
+            {
+                Answer1 = x.Answer1,
+                Answer2 = x.Answer2,
+                Answer3 = x.Answer3,
+                Answer4 = x.Answer4,
+                Question = x.Question
+            });
+
+            return models;
         }
     }
 }

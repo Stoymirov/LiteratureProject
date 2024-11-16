@@ -32,7 +32,7 @@ namespace LiteratureProject.Controllers
         {
 
         var id =  await  service.AddDeckAsync(model,User.Id());
-            return View(nameof(MyDecks));
+            return RedirectToAction(nameof(MyDecks));
         }
         public async Task<IActionResult> All()
         {
@@ -43,7 +43,15 @@ namespace LiteratureProject.Controllers
         {
             var model = await service.GetDeckByDeckIdAsync(id);
 
-            return View();
+            var displayModel = new DeckDisplayModel()
+            {
+                CreatedBy = model.CreatedBy,
+                Id = model.Id,
+                Name = model.Name,
+                Topic = model.Topic,
+                
+            };
+            return View(displayModel);
         }
         [HttpGet]
         public async Task<IActionResult> MyDecks()
@@ -86,6 +94,12 @@ namespace LiteratureProject.Controllers
             var id = await service.AddProblemAsync(model);
            
             return View(nameof(MyDeck), new {id=model.DeckOfProblemsId});
+        }
+        [HttpGet]
+        public async Task<IActionResult> ProblemsWithDeckId(int deckId)
+        {
+            var problems =await service.GetProblemsByDeckIdAsync(deckId);
+           
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LiteratureProject.Core.Models.BulgarianModels.DeckDisplayModel>
 
 @{
-    ViewData["Title"] = "All Decks";
+    ViewData["Title"] = "My Decks";
 }
 
 <h1>All Decks</h1>
@@ -23,10 +23,7 @@
                 <td>@deck.Topic</td>
                 <td>@deck.CreatedBy</td>
                 <td>
-                    <form asp-action="MyDeck" method="post">
-                        <input type="hidden" name="id" value="@deck.Id" />
-                        <button type="submit" class="btn btn-primary">View Deck</button>
-                    </form>
+                    <a asp-action="MyDeck" asp-controller="Bulgarian" asp-route-id="@deck.Id" class="btn btn-primary">View Deck</a>
                 </td>
             </tr>
         }

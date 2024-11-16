@@ -17,5 +17,6 @@ namespace LiteratureProject.Core.Contracts
         public Task<IEnumerable<DeckOfBulgarianProblems>> GetAllDecksByUserId(string userId);
 
         public Task<DeckOfBulgarianProblems> GetDeckByDeckIdAsync(int deckId);
+        public Task<IEnumerable<ProblemDisplayModel>> GetProblemsByDeckIdAsync(int deckId);
     }
 }
