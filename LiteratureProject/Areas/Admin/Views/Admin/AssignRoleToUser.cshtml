@@ -5,12 +5,24 @@
 <form asp-action="AssignRoleToUser" method="post">
     <div>
         <label for="userSelect">Select User:</label>
-        <select id="userSelect" asp-for="SelectedUserId" asp-items="Model.Users" class="form-control"></select>
+        <select id="userSelect" name="SelectedUserId" class="form-control">
+            @foreach (var user in Model.Users)
+            {
+                <option value="@user.Value">@user.Text</option>
+            }
+        </select>
+
+       
     </div>
 
     <div>
         <label for="roleSelect">Select Role:</label>
-        <select id="roleSelect" asp-for="SelectedRole" asp-items="Model.Roles" class="form-control"></select>
+        <select id="roleSelect" name="SelectedRole" class="form-control">
+            @foreach (var role in Model.Roles)
+            {
+                <option value="@role.Value">@role.Text</option>
+            }
+        </select>
     </div>
 
     <button type="submit" class="btn btn-primary">Assign Role</button>
