@@ -53,6 +53,7 @@ namespace LiteratureProject.Core.Services
 
             var problem = new BulgarianProblem()
             {
+                Question = model.Question,
                 Id = model.Id,
                 Answer1 = model.Answer1,
                 Answer2 = model.Answer2,
