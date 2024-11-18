@@ -136,6 +136,12 @@ namespace LiteratureProject.Controllers
             
             return View(problem);
         }
+        [HttpPost]
+        public async Task<IActionResult> EditProblem(ProblemFormModel model)
+        {
+            var id = await service.EditProblemAsync(model);
+            return RedirectToAction(nameof(MyDeck), new { id =model.DeckOfProblemsId });
+        }
         
     }
 }

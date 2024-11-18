@@ -3,6 +3,7 @@ using LiteratureProject.Core.Models.BulgarianModels;
 using LiteratureProject.Data;
 using LiteratureProject.Infrastructure.Data.Models.BulgarianModels;
 using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Internal;
 using System;
@@ -71,6 +72,26 @@ namespace LiteratureProject.Core.Services
 
         }
 
+        public async Task<int> EditProblemAsync(ProblemFormModel model)
+        {
+            var modelId = model.Id;
+            var problem = await context.BulgarianProblems.FindAsync(modelId);
+           
+            problem.Answer1 = model.Answer1;
+            problem.Answer2 = model.Answer2;
+            problem.Answer3 = model.Answer3;
+            problem.Answer4 = model.Answer4;
+            problem.IsAnswer1Correct = model.IsAnswer1Correct;
+            problem.IsAnswer2Correct = model.IsAnswer2Correct;
+            problem.IsAnswer3Correct = model.IsAnswer3Correct;
+            problem.IsAnswer4Correct = model.IsAnswer4Correct;
+            problem.Question = model.Question;
+            problem.Explanation = model.Explanation;
+
+            await context.SaveChangesAsync();
+            return problem.Id;
+        }
+
         public async Task<IEnumerable<DeckOfBulgarianProblems>> GetAllDecksByUserId(string userId)
         {
             var models = await context.DecksOfBulgarianProblems.Where(x => x.CreatedById == userId).ToListAsync();
@@ -90,6 +111,8 @@ namespace LiteratureProject.Core.Services
           var problem= await context.BulgarianProblems.FindAsync(problemId);
             var formModel = new ProblemFormModel()
             {
+                Question = problem.Question,
+                Id = problem.Id,
                 Answer1 = problem.Answer1,
                 Answer2 = problem.Answer2,
                 Answer3 = problem.Answer3,
@@ -101,6 +124,7 @@ namespace LiteratureProject.Core.Services
                 IsAnswer3Correct = problem.IsAnswer3Correct,
                 IsAnswer4Correct = problem.IsAnswer4Correct,
             };
+        
             return formModel;
         }
 
