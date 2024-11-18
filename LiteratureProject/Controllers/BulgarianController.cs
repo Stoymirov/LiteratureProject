@@ -3,6 +3,7 @@ using LiteratureProject.Core.Models.BulgarianModels;
 using LiteratureProject.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.ProjectModel;
 
 namespace LiteratureProject.Controllers
 {
@@ -120,5 +121,21 @@ namespace LiteratureProject.Controllers
             return View(viewModel);
            
         }
+        [HttpGet]
+        public async Task<IActionResult> EditProblem(int problemId)
+        {
+            string userId = User.Id();
+            var myDecks = await service.GetAllDecksByUserId(userId);
+
+            var problem = await service.GetProblemByIdAsync(problemId);
+            problem.DeckOptions = myDecks.Select(deck => new SelectListItem
+            {
+                Value = deck.Id.ToString(),
+                Text = deck.Name
+            }).ToList();
+            
+            return View(problem);
+        }
+        
     }
 }

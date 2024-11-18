@@ -85,7 +85,26 @@ namespace LiteratureProject.Core.Services
             return model;
         }
 
-       public async Task<IEnumerable<ProblemDisplayModel>> GetProblemsByDeckIdAsync(int deckId)
+        public async Task<ProblemFormModel> GetProblemByIdAsync(int problemId)
+        {
+          var problem= await context.BulgarianProblems.FindAsync(problemId);
+            var formModel = new ProblemFormModel()
+            {
+                Answer1 = problem.Answer1,
+                Answer2 = problem.Answer2,
+                Answer3 = problem.Answer3,
+                Answer4 = problem.Answer4,
+                DeckOfProblemsId = problem.DeckOfProblemsId,
+                Explanation = problem.Explanation,
+                IsAnswer1Correct = problem.IsAnswer1Correct,
+                IsAnswer2Correct = problem.IsAnswer2Correct,
+                IsAnswer3Correct = problem.IsAnswer3Correct,
+                IsAnswer4Correct = problem.IsAnswer4Correct,
+            };
+            return formModel;
+        }
+
+        public async Task<IEnumerable<ProblemDisplayModel>> GetProblemsByDeckIdAsync(int deckId)
         {
            var problems = await context.BulgarianProblems.Where(x=>x.DeckOfProblemsId == deckId).ToListAsync();
             var models = problems.Select(x => new ProblemDisplayModel()
@@ -94,7 +113,8 @@ namespace LiteratureProject.Core.Services
                 Answer2 = x.Answer2,
                 Answer3 = x.Answer3,
                 Answer4 = x.Answer4,
-                Question = x.Question
+                Question = x.Question,
+                problemId =x.Id
             });
 
             return models;

@@ -8,6 +8,8 @@ namespace LiteratureProject.Core.Models.BulgarianModels
 {
     public class ProblemDisplayModel
     {
+        public int problemId { get; set; }
+
         public string Question { get; set; } = string.Empty;
 
 
