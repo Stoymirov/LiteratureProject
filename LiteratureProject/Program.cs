@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using LiteratureProject.Extensions;
 using HouseRentingSystem.Infrastructure.Data.SeedDb;
+using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,7 +18,11 @@ SeedData data = new SeedData();
 //{
 //    options.AddPolicy("TeacherOnly", policy => policy.RequireClaim("TeacherName"));
 //});
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+});
+
 
 var app = builder.Build();
 
