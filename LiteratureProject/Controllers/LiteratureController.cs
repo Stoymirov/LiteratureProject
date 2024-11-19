@@ -78,9 +78,17 @@ namespace LiteratureProject.Controllers
            
             return RedirectToAction(nameof(Mine));
         }
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(string searchTerm)
         {
-            return View();
+            var allWorks = await service.GetAllWorksAsync();
+            if (!string.IsNullOrEmpty(searchTerm)){
+                allWorks = allWorks.Where(w =>
+         (w.Name != null && w.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) ||
+         (w.AuthorName != null && w.AuthorName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) ||
+         (w.TeacherName != null && w.TeacherName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)));
+            }
+            ViewData["SearchTerm"] = searchTerm;
+            return View(allWorks);
         }
         public async Task<IActionResult> Mine()
         {

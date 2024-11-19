@@ -197,5 +197,18 @@ namespace LiteratureProject.Core.Services
             }
             return false;
         }
+
+        public async Task<IEnumerable<LiteratureWorkDisplayViewModel>> GetAllWorksAsync()
+        {
+            var works = await context.LiteratureWorks.Select(x => new LiteratureWorkDisplayViewModel()
+            {
+                AuthorName = x.Author.Name,
+                Id = x.Id,
+                Name = x.Name,
+                TeacherName = x.TeacherLiteratureWorks.Select(x => x.Teacher.FirstName).FirstOrDefault()
+            })
+                .ToListAsync();
+            return works;
+        }
     }
 }

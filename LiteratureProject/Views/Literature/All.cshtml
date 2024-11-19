@@ -1,1 +1,45 @@
-﻿
+﻿@model IEnumerable<LiteratureWorkDisplayViewModel>
+<h1>All Literature Works</h1>
+
+<form method="get" asp-action="All">
+    <div class="form-group">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search by Name, Author, or Teacher" value="@ViewData["SearchTerm"]" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+   
+</form>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Teacher</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+
+        {
+            @foreach (var work in Model)
+
+            {
+                <tr>
+                    <td>@work.Id</td>
+                    <td>@work.Name</td>
+                    <td>@work.AuthorName</td>
+                    <td>@work.TeacherName</td>
+                </tr>
+            }
+        }
+
+        else
+
+        {
+            <tr>
+                <td colspan="4" class="text-center">No works found</td>
+            </tr>
+        }
+    </tbody>
+</table>
