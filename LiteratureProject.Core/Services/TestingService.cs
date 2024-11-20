@@ -29,5 +29,17 @@ namespace LiteratureProject.Core.Services
 
             return allDecks;
         }
+
+        public async Task<DeckDisplayModel> GetDeckByIdAsync(int id)
+        {
+            var selectedDeck = await (context.DecksOfBulgarianProblems.FirstOrDefaultAsync(x => x.Id == id));
+            return new DeckDisplayModel()
+            {
+                CreatedBy = selectedDeck.CreatedBy,
+                Id = selectedDeck.Id,
+                Name = selectedDeck.Name,
+                Topic = selectedDeck.Topic
+            };
+        }
     }
 }

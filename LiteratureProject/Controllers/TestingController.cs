@@ -18,14 +18,19 @@ namespace LiteratureProject.Controllers
         public async Task<IActionResult> ChooseDeck()
         {
             var extractAllDecks = await service.GetAllDecksAsync();
+            
             return View(extractAllDecks);
         }
         [HttpPost]
-        public IActionResult ConfirmDeck(int deckId)
+        public async Task<IActionResult> ConfirmDeck(int deckId)
         {
-            // Do something with the selected deckId (e.g., save, process, etc.)
-            TempData["Message"] = $"Deck with ID {deckId} selected.";
-            return RedirectToAction("ChooseDeck");
+            var extractDeckById = await service.GetDeckByIdAsync(deckId);
+            //if (extractDeckById == null)
+            //{
+            //    TempData["Error"] = "Deck not found.";
+            //    return RedirectToAction("ChooseDeck");
+            //}
+            return View(extractDeckById);
         }
     }
 }

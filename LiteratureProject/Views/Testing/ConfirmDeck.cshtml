@@ -1,0 +1,32 @@
+﻿@model LiteratureProject.Core.Models.BulgarianModels.DeckDisplayModel
+
+@{
+    ViewData["Title"] = "Confirm Deck Selection";
+}
+
+<h2>Confirm Deck Selection</h2>
+
+<div class="card">
+    <div class="card-header">
+        <h3>@Model.Name</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>Created By:</strong> @Model.CreatedBy</p>
+        <p><strong>Topic:</strong> @Model.Topic</p>
+        <p><strong>Deck ID:</strong> @Model.Id</p>
+    </div>
+</div>
+
+<form method="post" asp-action="FinalizeSelection">
+    <input type="hidden" name="deckId" value="@Model.Id" />
+    <button type="submit" class="btn btn-success mt-3">Yes, Select This Deck</button>
+    <a asp-action="ChooseDeck" class="btn btn-secondary mt-3">Cancel</a>
+</form>
+
+@if (TempData["Error"] != null)
+
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["Error"]
+    </div>
+}

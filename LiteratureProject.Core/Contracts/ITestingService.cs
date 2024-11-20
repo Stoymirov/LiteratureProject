@@ -10,5 +10,6 @@ namespace LiteratureProject.Core.Contracts
     public interface ITestingService
     {
         public Task<IEnumerable<DeckDisplayModel>> GetAllDecksAsync();
+        public Task<DeckDisplayModel> GetDeckByIdAsync(int id);
     }
 }
