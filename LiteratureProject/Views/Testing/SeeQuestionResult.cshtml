@@ -1,0 +1,28 @@
+﻿@model QuestionResultViewModel
+
+@{
+    ViewData["Title"] = "Question Result";
+}
+
+<h2>Question Result</h2>
+
+<div class="alert @Model.IsCorrect ? "alert-success" : "alert-danger" ">
+@if (Model.IsCorrect)
+{
+        <p>Correct! 🎉</p>
+}
+else
+{
+        <p>Wrong answer. 😞</p>
+}
+</div>
+
+<h4>Explanation:</h4>
+<p>@Model.Explanation</p>
+
+<form method="post" asp-action="GiveQuestion">
+    <input type="hidden" name="deckId" value="@Model.DeckId" />
+    <input type="hidden" name="problemNumber" value="@Model.NextProblemNumber" />
+    <input type="hidden" name="problemId" value="@Model.ProblemId" />
+    <button type="submit" class="btn btn-primary mt-3">Next Question</button>
+</form>

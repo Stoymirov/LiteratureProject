@@ -12,8 +12,7 @@ namespace LiteratureProject.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<ILiteratureWorkService, LiteratureWorkService>();
-
+            services.AddScoped<ILiteratureWorkService,LiteratureWorkService>();
             services.AddScoped<IBulgarianService, BulgarianService>();
             services.AddScoped<ITestingService, TestingService>();
             return services;

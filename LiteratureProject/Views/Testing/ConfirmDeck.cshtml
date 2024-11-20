@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<form method="post" asp-action="FinalizeSelection">
+<form method="post" asp-action="GiveQuestion">
     <input type="hidden" name="deckId" value="@Model.Id" />
     <button type="submit" class="btn btn-success mt-3">Yes, Select This Deck</button>
     <a asp-action="ChooseDeck" class="btn btn-secondary mt-3">Cancel</a>

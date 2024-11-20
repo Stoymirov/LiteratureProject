@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using LiteratureProject.Core.Contracts;
 using LiteratureProject.Core.Models.BulgarianModels;
+using LiteratureProject.Core.Models.TestingModels;
 using LiteratureProject.Data;
+using LiteratureProject.Infrastructure.Data.Models.BulgarianModels;
 using Microsoft.EntityFrameworkCore;
 namespace LiteratureProject.Core.Services
 {
@@ -40,6 +42,40 @@ namespace LiteratureProject.Core.Services
                 Name = selectedDeck.Name,
                 Topic = selectedDeck.Topic
             };
+        }
+        public async Task<ProblemTestingModel> GetNextQuestionAsync(int deckId, int problemNumber = 1, int problemId = 0)
+        {
+            var deck = await GetDeckByIdAsync(deckId);
+
+            var bgProblems =await context.BulgarianProblems.Where(x => x.DeckOfProblemsId == deckId).ToListAsync();
+            BulgarianProblem problem = null;
+            if (problemNumber == 1) {
+                problem = bgProblems.OrderBy(x => x.Id).FirstOrDefault(); }
+            else
+            {
+                problem= bgProblems.OrderBy(x=>x.Id).Where(x=>x.Id>problemId).FirstOrDefault();
+            }
+              
+            
+            
+
+            var problemDisplayModel = new ProblemTestingModel
+            {
+                Id = problem.Id,
+                Answer1 = problem.Answer1,
+                Answer2 = problem.Answer2,
+                Answer3 = problem.Answer3,
+                Answer4 = problem.Answer4,
+                DeckOfProblemsId = problem.DeckOfProblemsId,
+                Explanation = problem.Explanation,
+                IsAnswer1Correct = problem.IsAnswer1Correct,
+                IsAnswer2Correct = problem.IsAnswer2Correct,
+                IsAnswer3Correct = problem.IsAnswer3Correct,
+                IsAnswer4Correct = problem.IsAnswer4Correct,
+                Question= problem.Question
+
+            };
+            return problemDisplayModel;
         }
     }
 }
