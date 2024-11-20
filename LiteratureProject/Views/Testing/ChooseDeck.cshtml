@@ -1,0 +1,28 @@
+﻿@model IEnumerable<DeckDisplayModel>
+@{
+    ViewData["Title"] = "Choose a Deck";
+    
+}
+
+<h2>Choose a Deck</h2>
+
+<form method="post" asp-action="ConfirmDeck">
+    <div class="form-group">
+        <label for="deck">Select a Deck:</label>
+        <select id="deck" name="deckId" class="form-control" required>
+            <option value="" disabled selected>-- Select a Deck --</option>
+            @foreach (var deck in Model)
+            {
+                <option value="@deck.Id">@deck.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Confirm</button>
+</form>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success mt-3">
+        @TempData["Message"]
+    </div>
+}
