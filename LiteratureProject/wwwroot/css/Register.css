@@ -1,0 +1,95 @@
+﻿body {
+    font-family: "PT sans", sans-serif;
+    color: #234465;
+    background-color: #f9f2ee;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.header {
+    background-color: #ffa947;
+    color: white;
+    text-align: center;
+    padding: 1.5em;
+}
+
+    .header h1 {
+        margin: 0;
+    }
+
+form {
+    padding: 2em;
+    background-color: #ffd4a3;
+}
+
+.form-floating {
+    margin-bottom: 1.5em;
+}
+
+    .form-floating label {
+        color: #234465;
+    }
+
+.form-control {
+    border: 1px solid #ccc;
+    padding: 0.75em;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+    .form-control:focus {
+        border-color: #ffa947;
+        box-shadow: 0 0 5px rgba(255, 169, 71, 0.5);
+    }
+
+.btn-primary {
+    background-color: #ffa947;
+    border: none;
+    color: white;
+    padding: 0.75em 1.5em;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+    .btn-primary:hover {
+        background-color: #e58c39;
+    }
+
+.external-logins {
+    padding: 2em;
+    background-color: #fff;
+    text-align: center;
+}
+
+    .external-logins button {
+        margin: 0.5em;
+        background-color: #ffa947;
+        border: none;
+        color: white;
+        padding: 0.5em 1em;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .external-logins button:hover {
+            background-color: #e58c39;
+        }
+
+hr {
+    border: 1px solid #ffa947;
+    margin: 1.5em 0;
+}

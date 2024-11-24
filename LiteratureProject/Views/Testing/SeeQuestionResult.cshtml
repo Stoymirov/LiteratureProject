@@ -1,24 +1,18 @@
 ﻿@model QuestionResultViewModel
 
 @{
-    ViewData["Title"] = "Question Result";
+    ViewData["Title"] = "Question";
 }
 
-<h2>Question Result</h2>
+<h2>Question</h2>
 
-<div class="alert @Model.IsCorrect ? "alert-success" : "alert-danger" ">
-@if (Model.IsCorrect)
-{
-        <p>Correct! 🎉</p>
-}
-else
-{
-        <p>Wrong answer. 😞</p>
-}
+<p>Problem Number: @ViewData["ProblemNumber"]</p>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h4>@Model.Explanation</h4>
+    </div>
 </div>
-
-<h4>Explanation:</h4>
-<p>@Model.Explanation</p>
 
 <form method="post" asp-action="GiveQuestion">
     <input type="hidden" name="deckId" value="@Model.DeckId" />

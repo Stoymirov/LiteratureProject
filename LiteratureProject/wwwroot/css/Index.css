@@ -1,0 +1,130 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    width: 560px;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the container */
+    object-position: center; /* Center the image */
+}
+
+html {
+    font-family: "PT sans", sans-serif;
+    font-size: 24px;
+    color: #234465;
+}
+
+.firstSection {
+    display: flex;
+}
+
+.mainArticle {
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    justify-content: space-evenly;
+    width: 100%
+}
+
+    nav ul li {
+        flex: 1;
+        text-align: center;
+        border: 1px solid #ccc;
+        padding: 1.5em 3.2em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+#orangeLi {
+    background-color: #ffc;
+}
+
+.headerInfo {
+    margin-left: 2em;
+}
+
+    .headerInfo h1 {
+        font-size: 3em;
+        margin-right: 6em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+.mainArticle footer {
+    margin-top: 7em;
+}
+
+    .mainArticle footer ul {
+        display: flex;
+        border-left: 1px solid #ccc;
+        gap: 2em;
+        list-style: none;
+        margin-left: 2em;
+    }
+
+.headerInfo p {
+    opacity: 0.8;
+}
+
+blockquote {
+    width: 560px;
+    opacity: 1;
+    font-size: 0.7em;
+    background-color: #f9f2ee;
+    border-left: 7px solid #ffa947;
+}
+
+    blockquote p {
+        margin-left: 1em;
+        opacity: 0.8;
+    }
+
+        blockquote p:nth-child(2) {
+            margin-top: 3em;
+            opacity: 1;
+            font-weight: 800;
+        }
+
+.lineHolder {
+    display: flex; /* Enable flexbox for the container */
+    width: 100%; /* Ensure the parent takes up the full width */
+}
+
+    .lineHolder article {
+        flex: 1; /* Each article takes up equal space */
+    }
+
+        .lineHolder article:nth-child(1) {
+            flex: none; /* Disable flex-grow for this element */
+            width: 560px; /* Set fixed width */
+        }
+
+        .lineHolder article:nth-child(2) {
+            background-color: #ffa947;
+            text-align: center;
+        }
+
+        .lineHolder article:nth-child(3) {
+            background-color: #ffd4a3;
+            text-align: center;
+        }
+
+    .lineHolder article {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    a{
+        text-decoration:none;
+        color:inherit;
+    }

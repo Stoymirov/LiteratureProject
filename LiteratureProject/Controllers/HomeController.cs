@@ -13,8 +13,12 @@ namespace LiteratureProject.Controllers
         {
             _logger = logger;
         }
-
+        [AllowAnonymous]
         public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult MainPage()
         {
             return View();
         }

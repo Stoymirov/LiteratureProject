@@ -1,74 +1,113 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: 0;
-}
-
-html {
-    font: 20px/1.5 "PT Sans",sans-serif;
-}
-
-body, button, input, textarea {
-    font: inherit;
-}
-
-body {
-    font-family: 'Lato',sans-serif;
+﻿body {
+    font-family: "PT sans", sans-serif;
+    color: #234465;
+    background-color: #f9f2ee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
-    background-color: #131f24;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat',sans-serif;
-}
-
-a {
-    text-decoration: none;
-    color: white;
-    display: block;
+    margin: 0;
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
+    width: 80%;
+    max-width: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2em;
+}
+
+h1 {
+    color: #ffa947;
+    text-align: center;
+    margin-bottom: 1.5em;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 2em;
-    width: 20%;
-    margin: 0 auto;
-    justify-content: center;
-    margin-top: 13em;
 }
 
-input {
-    background-color: #202f36;
-    padding: 1em;
-    border-radius: 1.5em;
+.form-control {
+    border: 1px solid #ccc;
+    padding: 0.75em;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-bottom: 1em;
 }
 
-button {
-    background-color: #50d3ff;
-    color: black;
-    font-weight: 700;
-    padding: 1em;
-    border-radius: 1.5em;
-    border: 1px solid black;
-}
+    .form-control:focus {
+        border-color: #ffa947;
+        box-shadow: 0 0 5px rgba(255, 169, 71, 0.5);
+    }
 
-.external ul {
+.checkbox {
     display: flex;
-    gap: 1em;
-    justify-content: center;
-    margin-top: 2em;
+    align-items: center;
+    margin-bottom: 1em;
 }
 
-    .external ul li {
-        border-radius: 1.5em;
-        border: 3px solid #333;
-        padding: 1em 3em;
+    .checkbox label {
+        margin-left: 0.5em;
+        font-size: 0.9em;
+    }
+
+button[type="submit"] {
+    background-color: #ffa947;
+    border: none;
+    color: white;
+    padding: 0.75em;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+    button[type="submit"]:hover {
+        background-color: #e58c39;
+    }
+
+.additional-links,
+.external {
+    text-align: center;
+    margin-top: 1.5em;
+}
+
+    .additional-links a {
+        color: #234465;
+        text-decoration: none;
+        font-size: 0.9em;
+    }
+
+        .additional-links a:hover {
+            text-decoration: underline;
+        }
+
+    .external h3 {
+        margin-bottom: 1em;
+        font-size: 1em;
+        color: #ffa947;
+    }
+
+    .external ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .external li {
+        margin: 0.5em 0;
+    }
+
+.btn-primary {
+    background-color: #ffa947;
+    border: none;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+    .btn-primary:hover {
+        background-color: #e58c39;
     }
