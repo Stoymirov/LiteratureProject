@@ -13,5 +13,6 @@ namespace LiteratureProject.Core.Contracts
         public Task<IEnumerable<DeckDisplayModel>> GetAllDecksAsync();
         public Task<DeckDisplayModel> GetDeckByIdAsync(int id);
         public Task<ProblemTestingModel> GetNextQuestionAsync(int deckId, int problemNumber = 1, int problemId = 0);
+        public Task<int> GetCountOfProblemsByDeckId(int deckId);
     }
 }

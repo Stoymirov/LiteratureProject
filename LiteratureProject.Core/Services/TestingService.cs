@@ -32,6 +32,13 @@ namespace LiteratureProject.Core.Services
             return allDecks;
         }
 
+        public async Task<int> GetCountOfProblemsByDeckId(int deckId)
+        {
+            var deck = await context.DecksOfBulgarianProblems.FirstOrDefaultAsync(x => x.Id == deckId);
+            int count = deck.BulgarianProblems.Count();
+            return count;
+        }
+
         public async Task<DeckDisplayModel> GetDeckByIdAsync(int id)
         {
             var selectedDeck = await (context.DecksOfBulgarianProblems.FirstOrDefaultAsync(x => x.Id == id));
@@ -56,7 +63,10 @@ namespace LiteratureProject.Core.Services
                 problem= bgProblems.OrderBy(x=>x.Id).Where(x=>x.Id>problemId).FirstOrDefault();
             }
               
-            
+            if(problem == null)
+            {
+                return null;
+            }
             
 
             var problemDisplayModel = new ProblemTestingModel

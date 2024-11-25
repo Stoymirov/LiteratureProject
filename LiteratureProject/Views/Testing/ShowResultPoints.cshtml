@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Result Points";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <p><strong>Points Earned:</strong> @ViewData["points"]</p>
+    <p><strong>Maximum Points:</strong> @ViewData["maxPoints"]</p>
+</div>
+
+@if (ViewData["maxPoints"] is int maxPoints && ViewData["points"] is int points)
+
+{
+
+    var percentage = ((double)points / maxPoints) * 100;
+
+    <div>
+        <p><strong>Percentage:</strong> @percentage.ToString("F2")%</p>
+        <p>
+            @if (percentage >= 50)
+
+            {
+                <span style="color: green;">You passed!</span>
+            }
+
+            else
+
+            {
+                <span style="color: red;">You failed. Better luck next time!</span>
+            }
+        </p>
+    </div>
+}

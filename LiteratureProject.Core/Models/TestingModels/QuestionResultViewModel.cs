@@ -13,5 +13,6 @@ namespace LiteratureProject.Core.Models.TestingModels
         public int DeckId { get; set; }
         public int NextProblemNumber { get; set; }
         public int ProblemId { get; set; }
+        public int Points { get; set; }
     }
 }

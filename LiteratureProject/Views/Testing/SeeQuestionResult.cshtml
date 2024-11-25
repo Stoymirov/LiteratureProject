@@ -7,7 +7,18 @@
 <h2>Question</h2>
 
 <p>Problem Number: @ViewData["ProblemNumber"]</p>
-
+@if (Model.IsCorrect)
+{
+    <p style="color: green; font-size: 20px;">
+        🎉 Good job! You nailed it! 👍
+    </p>
+}
+else
+{
+    <p style="color: red; font-size: 20px;">
+        😢 Not quite there. Better luck next time! 💪
+    </p>
+}
 <div class="card mt-4">
     <div class="card-body">
         <h4>@Model.Explanation</h4>
@@ -18,5 +29,6 @@
     <input type="hidden" name="deckId" value="@Model.DeckId" />
     <input type="hidden" name="problemNumber" value="@Model.NextProblemNumber" />
     <input type="hidden" name="problemId" value="@Model.ProblemId" />
+    <input type="hidden" name="currentPoints" value="@Model.Points" />
     <button type="submit" class="btn btn-primary mt-3">Next Question</button>
 </form>

@@ -35,15 +35,23 @@ namespace LiteratureProject.Controllers
             return View(extractDeckById);
         }
         [HttpPost]
-        public async Task<IActionResult> GiveQuestion(int deckId,int problemNumber = 1,int problemId = 0)
+        public async Task<IActionResult> GiveQuestion(int deckId,int problemNumber = 1,int problemId = 0,int currentPoints = 0)
         {
             var question = await service.GetNextQuestionAsync(deckId,problemNumber,problemId);
+           
+            if(question == null)
+            {
+                var countOfProblems = await service.GetCountOfProblemsByDeckId(deckId);
+                return RedirectToAction(nameof(ShowResultPoints), new { maxPoints = countOfProblems, points = currentPoints });
 
+            }
             ViewData["ProblemNumber"] = problemNumber;
+            ViewData["Points"] = currentPoints;
+
             return View(question);
         }
         [HttpPost]
-        public async Task<IActionResult> SeeQuestionResult(int deckId, int problemId, int problemNumber, int selectedAnswer)
+        public async Task<IActionResult> SeeQuestionResult(int deckId, int problemId, int problemNumber, int selectedAnswer,int points)
         {
             var question = await bulgarianService.GetProblemByIdAsync(problemId);
             bool isCorrect = false;
@@ -54,6 +62,7 @@ namespace LiteratureProject.Controllers
                 (selectedAnswer == 4 && question.IsAnswer4Correct))
             {
                 isCorrect = true;
+                points += 1;
             }
 
             var resultViewModel = new QuestionResultViewModel()
@@ -62,10 +71,18 @@ namespace LiteratureProject.Controllers
                 Explanation = question.Explanation,
                 DeckId = deckId,
                 NextProblemNumber = problemNumber + 1,
-                ProblemId = problemId
+                ProblemId = problemId,
+                Points = points
             };
 
             return View(resultViewModel);
         }
+        public async Task<IActionResult> ShowResultPoints(int maxPoints,int points)
+        {
+            ViewData["points"] = points;
+            ViewData["maxPoints"] = maxPoints;
+            return View();
+        }
+
     }
 }
