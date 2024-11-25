@@ -27,7 +27,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+h1, h2 {
     text-align: center;
     margin-bottom: 1.5em;
 }
@@ -36,6 +36,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 1em;
+    margin-bottom: 1em;
 }
 
 label {
@@ -44,14 +45,23 @@ label {
     opacity: 0.85;
 }
 
-input, select {
+input, select, textarea {
     width: 100%;
-    height: 3em;
     padding: 0.5em;
     background-color: #f2ece8;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1em;
+}
+
+textarea {
+    height: 5em;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
 }
 
 button {
@@ -72,3 +82,8 @@ button {
         color: #ffd4a3;
         transform: scale(1.02);
     }
+
+.text-danger {
+    color: #ff0000;
+    font-size: 0.8em;
+}

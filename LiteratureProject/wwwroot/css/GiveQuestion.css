@@ -19,13 +19,26 @@ body {
 }
 
 .wrapper {
-    width: 90%;
+    width: 100%;
     max-width: 1200px;
     background-color: #fdf7f3;
     border-radius: 8px;
     padding: 2em;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
 }
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    width: 100%;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
 
 h1 {
     text-align: center;
@@ -42,6 +55,9 @@ label {
     font-size: 0.9em;
     color: #234465;
     opacity: 0.85;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 input, select {
@@ -72,3 +88,15 @@ button {
         color: #ffd4a3;
         transform: scale(1.02);
     }
+
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+input[type="checkbox"] {
+    margin: 0;
+    align-self: flex-start;
+}
