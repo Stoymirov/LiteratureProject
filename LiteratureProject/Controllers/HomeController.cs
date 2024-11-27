@@ -16,6 +16,13 @@ namespace LiteratureProject.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+               
+                return RedirectToAction(nameof(MainPage));
+            }
+
+           
             return View();
         }
         public IActionResult MainPage()
