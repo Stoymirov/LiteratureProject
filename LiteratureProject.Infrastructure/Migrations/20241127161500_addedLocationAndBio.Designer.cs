@@ -4,6 +4,7 @@ using LiteratureProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiteratureProject.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241127161500_addedLocationAndBio")]
+    partial class addedLocationAndBio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,10 +145,6 @@ namespace LiteratureProject.Infrastructure.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -207,19 +206,18 @@ namespace LiteratureProject.Infrastructure.Migrations
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
                             Bio = "",
-                            ConcurrencyStamp = "e2462c5e-262f-4f44-98f1-0ea224c21659",
+                            ConcurrencyStamp = "bdd667ed-9bcc-4ac1-8659-53d4160fb9c3",
                             Email = "teacher@mail.com",
                             EmailConfirmed = false,
                             FirstName = "",
-                            ImageUrl = "",
                             LastName = "",
                             Location = "",
                             LockoutEnabled = false,
                             NormalizedEmail = "teacher@mail.com",
                             NormalizedUserName = "teacher@mail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJwdrdZ2ZpQ992aJHrZLMh1NxR3mokXgNSfBvU/wXKaBds66gqGBo+It25/HP425Lg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO1Q5Qr1fdzuxhkM7XphoquxA0n1TooMWVxQd8deP1vGFdkQR2xZKvzRsgWURyPBHg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9e133b7e-64ba-4fda-b3ac-07ad0bc55dec",
+                            SecurityStamp = "da15bf5e-3eab-464b-b17f-480922ffd7fc",
                             TwoFactorEnabled = false,
                             UserName = "teacher@mail.com"
                         },
@@ -228,19 +226,18 @@ namespace LiteratureProject.Infrastructure.Migrations
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
                             Bio = "",
-                            ConcurrencyStamp = "d2eec17c-0e0b-4769-9360-2d7acde274b1",
+                            ConcurrencyStamp = "6ae40f35-1547-495d-8b79-f968e4dcbd14",
                             Email = "student@mail.com",
                             EmailConfirmed = false,
                             FirstName = "",
-                            ImageUrl = "",
                             LastName = "",
                             Location = "",
                             LockoutEnabled = false,
                             NormalizedEmail = "student@mail.com",
                             NormalizedUserName = "student@mail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMmXrfha2BLRJMuZbF59OGqrNCs5+fYPxZmDtcgCwi3pIxztT2ECbCAxTFSETa7UdQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECfnmOQOTYaoSA9RzE2E5rfsXzcx++M496k0fHuJ1FkMPD32WVZdPLExw3R4Fx5HQg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "42143e61-c2b1-47ff-af6c-47e88567a90a",
+                            SecurityStamp = "8c2546b4-8a85-401e-9e62-ef4b88724710",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });

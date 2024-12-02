@@ -14,5 +14,11 @@ namespace LiteratureProject.Infrastructure.DataConstants
 		public const int LastNameMaxLength = 20;
 		public const int LastNameMinLength = 2;
 
+		public const int LocationMinLength = 2;
+		public const int LocationMaxLength = 20;
+
+		public const int BioMinLength = 20;
+		public const int BioMaxLength = 100;
+
 	}
 }

@@ -15,6 +15,14 @@ namespace LiteratureProject.Extensions
             services.AddScoped<ILiteratureWorkService,LiteratureWorkService>();
             services.AddScoped<IBulgarianService, BulgarianService>();
             services.AddScoped<ITestingService, TestingService>();
+            services.AddScoped<IProfileService, ProfileService>();
+            services.AddSingleton<GCSService>(sp =>
+            {
+                var config = sp.GetRequiredService<IConfiguration>();
+                string credentialsPath = config["GoogleCloud:CredentialsFilePath"];
+                string bucketName = config["GoogleCloud:BucketName"];
+                return new GCSService(credentialsPath, bucketName);
+            });
             return services;
         }
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)

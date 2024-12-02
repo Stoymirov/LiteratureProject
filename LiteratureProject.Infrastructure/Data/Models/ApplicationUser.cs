@@ -20,7 +20,13 @@ namespace LiteratureProject.Infrastructure.Data.Models
         [MaxLength(LastNameMaxLength)]
         [PersonalData]
         public string LastName { get; set; } = string.Empty;
-
+        [MaxLength(LocationMaxLength)]
+        [PersonalData]
+        public string Location { get; set; } = string.Empty;
+        [MaxLength(BioMaxLength)]
+        [PersonalData]
+        public string Bio { get; set; } = string.Empty;
+        public string ImageUrl { get; set; } = string.Empty;    
         public IEnumerable<TeacherLiteratureWork> TeacherLiteratureWorks { get; set; } = new List<TeacherLiteratureWork>();
     }
 }

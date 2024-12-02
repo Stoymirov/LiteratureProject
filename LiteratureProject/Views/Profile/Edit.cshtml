@@ -1,0 +1,52 @@
+﻿@model LiteratureProject.Core.Models.ProfileModels.UserProfileViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="~/css/EditProfile.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="additionalWrapper">
+            <h1>User Profile</h1>
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="FullName">Full Name</label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Bio">Bio</label>
+                    <textarea asp-for="Bio" class="form-control"></textarea>
+                    <span asp-validation-for="Bio" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Location">Location</label>
+                    <input asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ProfilePictureUrl">Profile Picture</label>
+                    <input type="file" name="ProfilePicture" class="form-control" />
+                    <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Role">Role</label>
+                    <input asp-for="Role" class="form-control" readonly />
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

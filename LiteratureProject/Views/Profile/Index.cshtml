@@ -1,4 +1,4 @@
-﻿@model UserProfileViewModel
+﻿@model LiteratureProject.Core.Models.ProfileModels.UserProfileViewModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +22,6 @@
                     <img src="@Model.ProfilePictureUrl" alt="Profile Picture">
                 </div>
                 <div class="profile-info">
-                    <p><strong>Email:</strong> @Model.Email</p>
                     <p><strong>Bio:</strong> @Model.Bio</p>
                     <p><strong>Location:</strong> @Model.Location</p>
                 </div>
@@ -30,8 +29,8 @@
 
            
             <div class="profile-actions">
-                <a href="/EditProfile" class="btn btn-primary">Edit Profile</a>
-                <a href="/Logout" class="btn btn-primary">Logout</a>
+                <a asp-controller="Profile" asp-action="Edit" class="btn btn-primary">Edit Profile</a>
+                <a asp-controller="Account" asp-action="Logout" class="btn btn-primary">Logout</a>
             </div>
         </div>
     </div>

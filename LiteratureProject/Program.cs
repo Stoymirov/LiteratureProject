@@ -6,12 +6,19 @@ using Microsoft.EntityFrameworkCore;
 using LiteratureProject.Extensions;
 using HouseRentingSystem.Infrastructure.Data.SeedDb;
 using Microsoft.AspNetCore.Mvc;
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Storage.V1;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddApplicationDbContext(builder.Configuration);
 builder.Services.AddApplicationIdentity(builder.Configuration);
-
+builder.Services.AddSingleton<StorageClient>(provider =>
+{
+    string credentialsPath = "C:\\Users\\mitko\\Downloads\\rare-ridge-403821-1f5200749a70.json";
+    var credential = GoogleCredential.FromFile(credentialsPath);
+    return StorageClient.Create(credential);
+});
 builder.Services.AddApplicationServices();
 SeedData data = new SeedData();
 //builder.Services.AddAuthorization(options =>
