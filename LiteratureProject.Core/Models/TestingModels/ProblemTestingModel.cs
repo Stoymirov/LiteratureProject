@@ -1,5 +1,6 @@
 ﻿using LiteratureProject.Infrastructure.Data.Models.BulgarianModels;
 using System;
+using LiteratureProject.Core.ViewModelDataConstants;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace LiteratureProject.Core.Models.TestingModels
 {
+    [AtLeastOneCorrectAnswer]
     public class ProblemTestingModel
     {
         

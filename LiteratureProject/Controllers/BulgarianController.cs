@@ -31,8 +31,11 @@ namespace LiteratureProject.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDeck(DeckFormModel model)
         {
-
-        var id =  await  service.AddDeckAsync(model,User.Id());
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var id =  await  service.AddDeckAsync(model,User.Id());
             return RedirectToAction(nameof(MyDecks));
         }
         public async Task<IActionResult> All()
@@ -91,7 +94,19 @@ namespace LiteratureProject.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProblem(ProblemFormModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                string userId = User.Id();
+                var myDecks = await service.GetAllDecksByUserId(userId);
 
+                model.DeckOptions = myDecks.Select(deck => new SelectListItem
+                {
+                    Value = deck.Id.ToString(),
+                    Text = deck.Name
+                }).ToList();
+
+                return View(model); 
+            }
             var id = await service.AddProblemAsync(model);
 
             return RedirectToAction(nameof(MyDeck), new { id = model.DeckOfProblemsId });
@@ -139,6 +154,19 @@ namespace LiteratureProject.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProblem(ProblemFormModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                string userId = User.Id();
+                var myDecks = await service.GetAllDecksByUserId(userId);
+
+                model.DeckOptions = myDecks.Select(deck => new SelectListItem
+                {
+                    Value = deck.Id.ToString(),
+                    Text = deck.Name
+                }).ToList();
+
+                return View(model); 
+            }
             var id = await service.EditProblemAsync(model);
             return RedirectToAction(nameof(MyDeck), new { id =model.DeckOfProblemsId });
         }

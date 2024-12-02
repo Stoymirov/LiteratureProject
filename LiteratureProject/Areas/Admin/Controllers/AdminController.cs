@@ -15,6 +15,7 @@ namespace LiteratureProject.Areas.Admin.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        //private readonly 
 
         public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -72,6 +73,12 @@ namespace LiteratureProject.Areas.Admin.Controllers
             }
 
             return BadRequest("Role assignment failed.");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Dashboard()
+        {
+            
+            return View();
         }
     }
 }

@@ -38,30 +38,40 @@ namespace LiteratureProject.Controllers
                     Text = a.Name
                 }).ToList()
             };
-
+            model.TeacherId = User.Id();
             return View(model);
         }
         [HttpPost]
+
         public async Task<IActionResult> Add(LiteratureWorkViewModel model)
         {
+            
             if (await service.AuthorExistsAsync(model.AuthorId) == false)
             {
-                ModelState.AddModelError(nameof(model.AuthorId), "Author does not exist");
+                ModelState.AddModelError(nameof(model.AuthorId), "Author does not exist.");
             }
-            //this validation could not be added due to logical reasons.
 
+           
+            if (string.IsNullOrWhiteSpace(model.Name) || model.Name.Length < 3)
+            {
+                ModelState.AddModelError(nameof(model.Name), "The Name must be at least 3 characters long.");
+            }
 
-            //if (ModelState.IsValid == false)
+            
+            //if (!ModelState.IsValid)
             //{
-            //    foreach (var key in ModelState.Keys)
+                
+            //    foreach (var state in ModelState)
             //    {
-            //        var state = ModelState[key];
-            //        foreach (var error in state.Errors)
+            //        var key = state.Key;
+            //        var errors = state.Value.Errors;
+            //        foreach (var error in errors)
             //        {
-            //            Console.WriteLine($"Error in '{key}': {error.ErrorMessage}");
+            //            Console.WriteLine($"Validation Error: Key={key}, Error={error.ErrorMessage}");
             //        }
             //    }
 
+                
             //    var authors = await service.GetAuthorsAsync();
             //    model.Authors = authors.Select(a => new SelectListItem
             //    {
@@ -72,12 +82,17 @@ namespace LiteratureProject.Controllers
             //    return View(model);
             //}
 
-            string userId = User.Id();
+            //here i do not do the modelValidation because the analysis parts are not yet created and therefore the modelState is always invaid
 
-            int newLiteratureWork = await service.CreateAsync(model,userId);
            
+            string userId = User.Id();
+            int newLiteratureWork = await service.CreateAsync(model, userId);
+
             return RedirectToAction(nameof(Mine));
         }
+
+
+
         public async Task<IActionResult> All(string searchTerm)
         {
             var allWorks = await service.GetAllWorksAsync();
