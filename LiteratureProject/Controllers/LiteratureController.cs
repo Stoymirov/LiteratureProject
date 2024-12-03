@@ -158,6 +158,7 @@ namespace LiteratureProject.Controllers
             {
                 return NotFound(); 
             }
+
           await service.EditAsync(model);
             return RedirectToAction(nameof(Mine));
           
@@ -180,6 +181,7 @@ namespace LiteratureProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            
             var success = await service.DeleteWorkAsync(id);
             if (success)
             {

@@ -14,12 +14,10 @@
         <article class="mainArticle">
             <nav>
                 <ul>
-                    <li <a href="/Identity/Account/Register">Български</a></li>
-                    <li <a href="/Identity/Account/Register">Литература</a></li>
-                   <li <a href="/Identity/Account/Register">Тествай се</a></li>
-                    
-                        <li style="background-color: #ffd4a3"><a href="/Identity/Account/Login">Влез</a></li>
-                    
+                    <li> <a asp-controller="Bulgarian" asp-action="Index">Български</a></li>
+                    <li> <a asp-controller="Literature" asp-action="Index">Литература</a></li>
+                    <li> <a asp-controller="Testing" asp-action="ChooseDeck">Тествай се</a></li>
+                    <li style="background-color: #ffd4a3"> <a asp-controller="Profule" asp-action="Index">Профил</a></li>
                 </ul>
             </nav>
             <section class="headerInfo">

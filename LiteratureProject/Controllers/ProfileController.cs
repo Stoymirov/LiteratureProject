@@ -7,7 +7,7 @@ using LiteratureProject.Core.Services;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace LiteratureProject.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
         private readonly GCSService _gcsService; // The Google Cloud Storage service class
 

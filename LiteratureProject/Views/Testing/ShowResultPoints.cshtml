@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Result Points";
 }
-
+<link href="~/css/ShowResultPoints.css" rel="stylesheet" />   
 <h1>@ViewData["Title"]</h1>
 
 <div>
@@ -31,4 +31,6 @@
             }
         </p>
     </div>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-4">Back to Home</a>
+
 }

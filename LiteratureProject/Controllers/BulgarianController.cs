@@ -7,7 +7,7 @@ using NuGet.ProjectModel;
 
 namespace LiteratureProject.Controllers
 {
-    public class BulgarianController : Controller
+    public class BulgarianController : BaseController
     {
         private IBulgarianService service;
         public BulgarianController(IBulgarianService service)

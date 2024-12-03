@@ -3,36 +3,33 @@
 @{
     ViewData["Title"] = "Literature Works";
 }
+<link href="~/css/LiteratureMine.css" rel="stylesheet" />
+<h1>Literature Works</h1>
 
-<h2>Literature Works</h2>
-
-<div class="container">
-    <div class="row">
-        @foreach (var work in Model)
-        {
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">@work.Name</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Author: @work.AuthorName</h6>
-                        <h6 class="card-subtitle mb-2 text-muted">Teacher: @work.TeacherName</h6>
-                        <a href="@Url.Action("Details", "Literature", new { id = work.Id })" class="btn btn-primary mt-3">
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Teacher</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var work in Model)
+            {
+                <tr>
+                    <td>@work.Name</td>
+                    <td>@work.AuthorName</td>
+                    <td>@work.TeacherName</td>
+                    <td>
+                        <a href="@Url.Action("Details", "Literature", new { id = work.Id })" class="btn-primary">
                             View Details
                         </a>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-
-<style>
-    .card {
-        height: 100%;
-    }
-    .card-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-</style>

@@ -1,0 +1,100 @@
+﻿.details-container {
+    margin: 2em auto;
+    padding: 2em;
+    max-width: 800px;
+    background-color: #f9f2ee;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-title {
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: #234465;
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+.analysis-section {
+    margin: 1.5em 0;
+}
+
+.analysis-title {
+    font-size: 1.5em;
+    color: #234465;
+    margin-bottom: 0.5em;
+}
+
+.analysis-content {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555;
+    padding: 1em;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+    margin-top: 1em;
+}
+
+.pagination-link {
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-size: 0.9em;
+    color: #234465;
+    text-decoration: none;
+    background-color: #ffd4a3;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .pagination-link.active {
+        background-color: #ffa947;
+        color: white;
+        font-weight: bold;
+    }
+
+    .pagination-link:hover {
+        background-color: #e58c39;
+        color: white;
+    }
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2em;
+}
+
+.btn {
+    padding: 0.6em 1.2em;
+    font-size: 0.9em;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #ffa947;
+    color: white;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #e58c39;
+    }
+
+.btn-danger {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+}
+
+    .btn-danger:hover {
+        background-color: #d93636;
+    }
