@@ -35,6 +35,11 @@
                         <td>@work.Name</td>
                         <td>@work.AuthorName</td>
                         <td>@work.TeacherName</td>
+
+                        <td>
+                           
+                            <a asp-controller="Literature" asp-action="Details" asp-route-id="@work.Id" class="btn btn-info">View Details</a>
+                        </td>
                     </tr>
                 }
             }

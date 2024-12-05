@@ -46,7 +46,7 @@ namespace LiteratureProject.Core.Services
 
         public async Task<bool> EditInformationAsync(UserProfileViewModel model)
         {
-            using (var scope = _serviceProvider.CreateScope()) // Manually creating a scope
+            using (var scope = _serviceProvider.CreateScope()) 
             {
                 var scopedContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 var scopedUserManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();

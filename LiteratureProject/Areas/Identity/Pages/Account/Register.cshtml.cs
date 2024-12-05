@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using static LiteratureProject.Infrastructure.DataConstants.ApplicationUserConstants;
+using static LiteratureProject.Infrastructure.DataConstants.ValidationConstants.ApplicationUserConstants;
 namespace LiteratureProject.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel

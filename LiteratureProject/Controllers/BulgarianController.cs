@@ -22,8 +22,9 @@ namespace LiteratureProject.Controllers
         [HttpGet]
         public async Task<IActionResult> AddDeck()
         {
-
+            var userId = User.Id();
             var model = new DeckFormModel();
+            model.CreatedById = userId;
             
             return View(model);
         }

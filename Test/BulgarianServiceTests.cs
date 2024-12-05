@@ -1,174 +1,166 @@
-//using LiteratureProject.Core.Models;
-//using LiteratureProject.Core.Services;
-//using LiteratureProject.Data;
-//using LiteratureProject.Data.Models;
-//using LiteratureProject.Infrastructure.Data.Models;
-//using Microsoft.EntityFrameworkCore;
-//using NUnit.Framework;
-//using System;
-//using System.Linq;
-//using System.Threading.Tasks;
+using LiteratureProject.Core.Models.BulgarianModels;
+using LiteratureProject.Core.Services;
+using LiteratureProject.Data;
+using LiteratureProject.Infrastructure.Data;
+using LiteratureProject.Infrastructure.Data.Enums;
+using LiteratureProject.Infrastructure.Data.Models.BulgarianModels;
+using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-//[TestFixture]
-//public class LiteratureWorkServiceTests
-//{
-//    private ApplicationDbContext mockContext;
-//    private LiteratureWorkService service;
+namespace LiteratureProject.Tests.Services
+{
+    [TestFixture]
+    public class BulgarianServiceTests
+    {
+        private ApplicationDbContext context;
+        private BulgarianService service;
 
-//    [SetUp]
-//    public void Setup()
-//    {
-//        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-//            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-//            .Options;
+        [SetUp]
+        public void Setup()
+        {
+            
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDb")
+                .Options;
 
-//        mockContext = new ApplicationDbContext(options);
-//        service = new LiteratureWorkService(mockContext);
-//    }
-//    [Test]
-//    public async Task GetAuthorsAsync_ReturnsAllAuthors()
-//    {
-//        Arrange
-//        mockContext.Authors.Add(new Author { Id = 1, Name = "Author1" });
-//        mockContext.Authors.Add(new Author { Id = 2, Name = "Author2" });
-//        await mockContext.SaveChangesAsync();
+            context = new ApplicationDbContext(options);
+            service = new BulgarianService(context);
+        }
 
-//        var result = await service.GetAuthorsAsync();
+        [TearDown]
+        public void Teardown()
+        {
+           
+            context.Database.EnsureDeleted();
+            context.Dispose();
+        }
 
-//        Assert.That(result, Is.Not.Null);
-//        Assert.That(result, Has.Exactly(2).Items);
-//        Assert.That(result, Has.Some.Matches<Author>(a => a.Name == "Author1"));
-//        Assert.That(result, Has.Some.Matches<Author>(a => a.Name == "Author2"));
-//    }
-//    [Test]
-//    public async Task CreateAsync_AddsLiteratureWorkAndTeacherRelation()
-//    {
+        [Test]
+        public async Task AddDeckAsync_ShouldAddDeckToDatabase()
+        {
+            // Arrange
+            var deckModel = new DeckFormModel
+            {
+                Name = "Test Deck",
+                SelectedTopic = BulgarianDeckTopic.ProperWriting,
+                CreatedBy = "Test User"
+            };
 
-//        var teacherId = "Teacher1";
-//        var author = new Author { Id = 1, Name = "Author1" };
-//        mockContext.Authors.Add(author);
-//        await mockContext.SaveChangesAsync();
+            
+            var result = await service.AddDeckAsync(deckModel, "test-user-id");
 
-//        var model = new LiteratureWorkViewModel
-//        {
-//            Name = "Work1",
-//            AuthorId = author.Id,
-//            Parts = new List<AnalysisPart>
-//        {
-//            new AnalysisPart { Content = "Part1" },
-//            new AnalysisPart { Content = "Part2" }
-//        }
-//        };
+            
+            var deck = await context.DecksOfBulgarianProblems.FindAsync(result);
+            Assert.That(deck, Is.Not.Null);
+            Assert.That(deck.Name, Is.EqualTo("Test Deck"));
+            Assert.That(deck.CreatedById, Is.EqualTo("test-user-id"));
+        }
 
+        [Test]
+        public async Task AddProblemAsync_ShouldAddProblemToDatabase()
+        {
+            
+            var deck = new DeckOfBulgarianProblems { Id = 1, Name = "Sample Deck" };
+            await context.DecksOfBulgarianProblems.AddAsync(deck);
+            await context.SaveChangesAsync();
 
-//        var result = await service.CreateAsync(model, teacherId);
+            var problemModel = new ProblemFormModel
+            {
+                Question = "Sample Question",
+                Answer1 = "Answer 1",
+                Answer2 = "Answer 2",
+                Answer3 = "Answer 3",
+                Answer4 = "Answer 4",
+                IsAnswer1Correct = true,
+                DeckOfProblemsId = deck.Id
+            };
 
+            
+            var result = await service.AddProblemAsync(problemModel);
 
-//        var work = await mockContext.LiteratureWorks.FindAsync(result);
-//        Assert.That(work, Is.Not.Null);
-//        Assert.That(work.Name, Is.EqualTo("Work1"));
+            
+            var problem = await context.BulgarianProblems.FindAsync(result);
+            Assert.That(problem, Is.Not.Null);
+            Assert.That(problem.Question, Is.EqualTo("Sample Question"));
+            Assert.That(problem.DeckOfProblemsId, Is.EqualTo(deck.Id));
+        }
 
-//        var teacherRelation = await mockContext.UserLiteratureWorks
-//            .FirstOrDefaultAsync(ulw => ulw.ApplicationUserId == teacherId && ulw.LiteratureWorkId == work.Id);
+        [Test]
+        public async Task GetAllDecksByUserId_ShouldReturnDecksForUser()
+        {
+            
+            var decks = new List<DeckOfBulgarianProblems>
+            {
+                new DeckOfBulgarianProblems { Id = 1, Name = "Deck 1", CreatedById = "user-1" },
+                new DeckOfBulgarianProblems { Id = 2, Name = "Deck 2", CreatedById = "user-1" },
+                new DeckOfBulgarianProblems { Id = 3, Name = "Deck 3", CreatedById = "user-2" }
+            };
+            await context.DecksOfBulgarianProblems.AddRangeAsync(decks);
+            await context.SaveChangesAsync();
+            var result = await service.GetAllDecksByUserId("user-1");
 
-//        Assert.That(teacherRelation, Is.Not.Null);
-//    }
-//    [Test]
-//    public async Task CreateAsync_AddsLiteratureWorkAndTeacherRelation()
-//    {
-//        Arrange
-//       var teacherId = "Teacher1";
-//        var author = new Author { Id = 1, Name = "Author1" };
-//        mockContext.Authors.Add(author);
-//        await mockContext.SaveChangesAsync();
+           
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Count(), Is.EqualTo(2));
+            Assert.That(result.Any(d => d.Name == "Deck 1"), Is.True);
+            Assert.That(result.Any(d => d.Name == "Deck 2"), Is.True);
+        }
 
-//        var model = new LiteratureWorkViewModel
-//        {
-//            Name = "Work1",
-//            AuthorId = author.Id,
-//            Parts = new List<AnalysisPart>
-//        {
-//            new AnalysisPart { Content = "Part1" },
-//            new AnalysisPart { Content = "Part2" }
-//        }
-//        };
+        [Test]
+        public async Task GetDeckByDeckIdAsync_ShouldReturnDeckWithProblems()
+        {
+            
+            var deck = new DeckOfBulgarianProblems
+            {
+                Id = 1,
+                Name = "Test Deck",
+                BulgarianProblems = new List<BulgarianProblem>
+                {
+                    new BulgarianProblem { Id = 1, Question = "Q1" },
+                    new BulgarianProblem { Id = 2, Question = "Q2" }
+                }
+            };
 
-//        Act
-//       var result = await service.CreateAsync(model, teacherId);
+            await context.DecksOfBulgarianProblems.AddAsync(deck);
+            await context.SaveChangesAsync();
 
-//        Assert
-//       var work = await mockContext.LiteratureWorks.FindAsync(result);
-//        Assert.That(work, Is.Not.Null);
-//        Assert.That(work.Name, Is.EqualTo("Work1"));
+           
+            var result = await service.GetDeckByDeckIdAsync(1);
 
-//        var teacherRelation = await mockContext.UserLiteratureWorks
-//            .FirstOrDefaultAsync(ulw => ulw.ApplicationUserId == teacherId && ulw.LiteratureWorkId == work.Id);
+           
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.BulgarianProblems.Count, Is.EqualTo(2));
+        }
 
-//        Assert.That(teacherRelation, Is.Not.Null);
-//    }
-//    [Test]
-//    public async Task GetWorkByIdAsync_ReturnsCorrectWorkDetails()
-//    {
-//        Arrange
-//       var author = new Author { Id = 1, Name = "Author1" };
-//        var work = new LiteratureWork
-//        {
-//            Id = 1,
-//            Name = "Work1",
-//            Author = author,
-//            AnalysisParts = new List<AnalysisPart>
-//        {
-//            new AnalysisPart { Id = 1, Content = "Part1" },
-//            new AnalysisPart { Id = 2, Content = "Part2" }
-//        }
-//        };
+        [Test]
+        public async Task GetProblemByIdAsync_ShouldReturnCorrectProblem()
+        {
+           
+            var problem = new BulgarianProblem
+            {
+                Id = 1,
+                Question = "Test Question",
+                Answer1 = "A1",
+                Answer2 = "A2",
+                Answer3 = "A3",
+                Answer4 = "A4",
+                IsAnswer1Correct = true
+            };
 
-//        mockContext.Authors.Add(author);
-//        mockContext.LiteratureWorks.Add(work);
-//        await mockContext.SaveChangesAsync();
+            await context.BulgarianProblems.AddAsync(problem);
+            await context.SaveChangesAsync();
 
-//        Act
-//       var result = await service.GetWorkByIdAsync(work.Id, 1);
+           
+            var result = await service.GetProblemByIdAsync(1);
 
-//        Assert
-//        Assert.That(result, Is.Not.Null);
-//        Assert.That(result.Name, Is.EqualTo("Work1"));
-//        Assert.That(result.AuthorName, Is.EqualTo(author.Name));
-//        Assert.That(result.AnalysisParts, Has.Count.EqualTo(2));
-//        Assert.That(result.CurrentPart, Is.EqualTo(1));
-//    }
-//    [Test]
-//    public async Task DeleteWorkAsync_SetsIsDeletedToTrue()
-//    {
-//        Arrange
-//       var work = new LiteratureWork { Id = 1, Name = "Work1", IsDeleted = false };
-//        mockContext.LiteratureWorks.Add(work);
-//        await mockContext.SaveChangesAsync();
-
-//        Act
-//       var result = await service.DeleteWorkAsync(work.Id);
-
-//        Assert
-//       var deletedWork = await mockContext.LiteratureWorks.FindAsync(work.Id);
-//        Assert.That(result, Is.True);
-//        Assert.That(deletedWork, Is.Not.Null);
-//        Assert.That(deletedWork.IsDeleted, Is.True);
-//    }
-
-//    [Test]
-//    public async Task DeleteWorkAsync_ReturnsFalseIfWorkDoesNotExist()
-//    {
-//        Act
-//       var result = await service.DeleteWorkAsync(99);
-
-//        Assert
-//        Assert.That(result, Is.False);
-//    }
-
-
-//    [TearDown]
-//    public void TearDown()
-//    {
-//        mockContext.Dispose();
-//    }
-//}
+            
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Question, Is.EqualTo("Test Question"));
+            Assert.That(result.IsAnswer1Correct, Is.True);
+        }
+    }
+}

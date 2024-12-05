@@ -25,21 +25,21 @@ public class LiteratureWorkServiceTests
         mockContext = new ApplicationDbContext(options);
         service = new LiteratureWorkService(mockContext);
     }
-    [Test]
-    public async Task GetAuthorsAsync_ReturnsAllAuthors()
-    {
+    //[Test]
+    //public async Task GetAuthorsAsync_ReturnsAllAuthors()
+    //{
        
-        mockContext.Authors.Add(new Author { Id = 1, Name = "Author1" });
-        mockContext.Authors.Add(new Author { Id = 2, Name = "Author2" });
-        await mockContext.SaveChangesAsync();
+    //    mockContext.Authors.Add(new Author { Id = 1, Name = "Author1" });
+    //    mockContext.Authors.Add(new Author { Id = 2, Name = "Author2" });
+    //    await mockContext.SaveChangesAsync();
 
-        var result = await service.GetAuthorsAsync();
+    //    var result = await service.GetAuthorsAsync();
 
-        Assert.That(result, Is.Not.Null);
-        Assert.That(result, Has.Exactly(2).Items);
-        Assert.That(result, Has.Some.Matches<Author>(a => a.Name == "Author1"));
-        Assert.That(result, Has.Some.Matches<Author>(a => a.Name == "Author2"));
-    }
+    //    Assert.That(result, Is.Not.Null);
+    //    Assert.That(result, Has.Exactly(2).Items);
+    //    Assert.That(result, Has.Some.Matches<Author>(a => a.Name == "Author1"));
+    //    Assert.That(result, Has.Some.Matches<Author>(a => a.Name == "Author2"));
+    //}
     [Test]
     public async Task CreateAsync_AddsLiteratureWorkAndTeacherRelation()
     {

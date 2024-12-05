@@ -30,7 +30,7 @@
            
             <div class="profile-actions">
                 <a asp-controller="Profile" asp-action="Edit" class="btn btn-primary">Edit Profile</a>
-                <a asp-controller="Account" asp-action="Logout" class="btn btn-primary">Logout</a>
+                <a asp-area="Identity" asp-page="/Account/Logout">Logout</a>
             </div>
         </div>
     </div>

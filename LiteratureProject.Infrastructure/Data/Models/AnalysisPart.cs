@@ -3,7 +3,7 @@ using LiteratureProject.Infrastructure.Data.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static LiteratureProject.Infrastructure.DataConstants.AnalysisPartConstants;
+using static LiteratureProject.Infrastructure.DataConstants.ValidationConstants.AnalysisPartConstants;
 namespace LiteratureProject.Infrastructure.Data.Models
 {
     public class AnalysisPart

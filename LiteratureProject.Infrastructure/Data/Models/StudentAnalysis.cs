@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static LiteratureProject.Infrastructure.DataConstants.StudentAnalysis;
+using static LiteratureProject.Infrastructure.DataConstants.ValidationConstants.StudentAnalysis;
 namespace LiteratureProject.Infrastructure.Data.Models
 {
     public class StudentAnalysis
