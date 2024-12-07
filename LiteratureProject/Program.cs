@@ -19,7 +19,7 @@ builder.Services.AddSingleton<StorageClient>(provider =>
     var credential = GoogleCredential.FromFile(credentialsPath);
     return StorageClient.Create(credential);
 });
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices(builder.Configuration);
 SeedData data = new SeedData();
 //builder.Services.AddAuthorization(options =>
 //{

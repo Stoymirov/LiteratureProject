@@ -1,46 +1,32 @@
 ﻿using Google.Cloud.Storage.V1;
-using Microsoft.AspNetCore.Http;
-using System;
+using LiteratureProject.Core.Models.ProfileModels;
 using System.IO;
 using System.Threading.Tasks;
 
 public class GCSService
 {
-    private readonly string _bucketName;
     private readonly StorageClient _storageClient;
+    private readonly string _bucketName;
 
-    // Constructor that initializes the service with credentials and bucket name
-    public GCSService(string credentialsPath, string bucketName)
+    public GCSService(GoogleCloudConfig config)
     {
-        _bucketName = bucketName;
+        // Set the credentials using the JSON file
+        var credential = Google.Apis.Auth.OAuth2.GoogleCredential.FromFile(config.CredentialsFilePath);
+        _storageClient = StorageClient.Create(credential);
 
-        // Set up the storage client with your credentials file
-        var storageClientBuilder = new StorageClientBuilder
-        {
-            CredentialsPath = credentialsPath  // Path to your service account key file
-        };
-
-        _storageClient = storageClientBuilder.Build();
+        _bucketName = config.BucketName;
     }
 
-    // Method to upload a file to Google Cloud Storage
-    public async Task<string> UploadFileAsync(IFormFile file)
+    public async Task<string> UploadFileAsync(Stream fileStream, string fileName,string contentType)
     {
-        // Generate a unique file name for the uploaded file
-        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+        // Upload file to Google Cloud Storage
+        var storageObject = await _storageClient.UploadObjectAsync(
+            _bucketName,
+            fileName,
+            contentType, // Content type
+            fileStream
+        );
 
-        using (var stream = file.OpenReadStream())
-        {
-            // Upload the file to the specified bucket
-            var storageObject = await _storageClient.UploadObjectAsync(
-                _bucketName,      // The name of the bucket
-                fileName,         // The file name in the bucket
-                file.ContentType, // Content type (MIME type) of the file
-                stream            // File stream to upload
-            );
-
-            // Return the public URL of the uploaded file (you can use this to display it)
-            return storageObject.MediaLink;
-        }
+        return $"https://storage.googleapis.com/{_bucketName}/{storageObject.Name}";
     }
 }

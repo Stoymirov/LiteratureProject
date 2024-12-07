@@ -30,29 +30,53 @@ namespace LiteratureProject.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(UserProfileViewModel model)
-        {
-            if (ModelState.IsValid)
+   
+            public async Task<IActionResult> Edit(UserProfileViewModel model)
             {
-
-                if (model.ProfilePicture != null)
+                if (ModelState.IsValid)
                 {
+                    // Check if a new file is uploaded
+                    if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
+                    {
+                        try
+                        {
+                            // Upload the file to Google Cloud Storage
+                            using var stream = model.ProfilePicture.OpenReadStream();
+                            var profilePictureUrl = await _gcsService.UploadFileAsync(stream, model.ProfilePicture.FileName,"image/jpeg");
 
-                    var profilePictureUrl = await _gcsService.UploadFileAsync(model.ProfilePicture);
-                    model.ProfilePictureUrl = profilePictureUrl;
+                            // Update the model with the uploaded file URL
+                            model.ProfilePictureUrl = profilePictureUrl;
+                        }
+                        catch (Exception ex)
+                        {
+                            // Log and handle the exception appropriately
+                            ModelState.AddModelError("", "Failed to upload the file. Please try again.");
+                            Console.WriteLine(ex.Message); // Replace with your logging solution
+                            return View(model);
+                        }
+                    }
+
+                    // Update the user information using the service
+                    var updateResult = await service.EditInformationAsync(model);
+                    if (updateResult)
+                    {
+                        // Redirect to the Index or desired page upon success
+                        return RedirectToAction(nameof(Index));
+                    }
+
+                    // If service fails, show an error message
+                    ModelState.AddModelError("", "Failed to update user information.");
                 }
 
-                var returning = service.EditInformationAsync(model);
+                // Log all errors to debug issues in the ModelState
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage); // Replace with appropriate logging
+                }
 
-                return RedirectToAction(nameof(Index));
+                // Return to the same view with errors if ModelState is invalid
+                return View(model);
             }
-            foreach(var error in ModelState.Values.SelectMany(v => v.Errors))
-    {
-                // Log each error (this could be to a file, a logger, or just output to the console)
-                Console.WriteLine(error.ErrorMessage);  // You can replace this with your logging solution
-            }
-            return View();
 
-        }
     }
 }

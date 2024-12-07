@@ -46,32 +46,26 @@ namespace LiteratureProject.Core.Services
 
         public async Task<bool> EditInformationAsync(UserProfileViewModel model)
         {
-            using (var scope = _serviceProvider.CreateScope()) 
+            var user = await _userManager.FindByIdAsync(model.Id);
+            if (user == null)
             {
-                var scopedContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                var scopedUserManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-
-                ApplicationUser user = await scopedUserManager.FindByIdAsync(model.Id);
-
-                if (user == null)
-                {
-                    throw new InvalidOperationException("User not found");
-                }
-
-                user.Bio = model.Bio;
-                user.Location = model.Location;
-                user.ImageUrl = model.ProfilePictureUrl;
-
-                try
-                {
-                    var result = await scopedUserManager.UpdateAsync(user);
-                }
-                catch(Exception ex) 
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                return true;
+                throw new InvalidOperationException("User not found.");
             }
+
+            // Update the user's bio and location
+            user.Bio = model.Bio;
+            user.Location = model.Location;
+
+            // Save changes using the UserManager
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                // Collect and throw errors if the update fails
+                var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                throw new InvalidOperationException($"Failed to update user: {errors}");
+            }
+
+            return true;
 
         }
     }
