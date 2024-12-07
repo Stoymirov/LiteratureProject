@@ -162,5 +162,61 @@ namespace LiteratureProject.Tests.Services
             Assert.That(result.Question, Is.EqualTo("Test Question"));
             Assert.That(result.IsAnswer1Correct, Is.True);
         }
+        [Test]
+        public void AddDeckAsync_ShouldThrowArgumentNullException_WhenModelIsNull()
+        {
+            DeckFormModel nullModel = null;
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                await service.AddDeckAsync(nullModel, "test-user-id"));
+        }
+
+        [Test]
+        public void AddDeckAsync_ShouldThrowArgumentException_WhenUserIdIsNullOrEmpty()
+        {
+            var deckModel = new DeckFormModel
+            {
+                Name = "Test Deck",
+                SelectedTopic = BulgarianDeckTopic.ProperWriting,
+                CreatedBy = "Test User"
+            };
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                await service.AddDeckAsync(deckModel, string.Empty));
+        }
+
+        // AddProblemAsync Tests
+        [Test]
+        public void AddProblemAsync_ShouldThrowArgumentNullException_WhenModelIsNull()
+        {
+            ProblemFormModel nullModel = null;
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                await service.AddProblemAsync(nullModel));
+        }
+
+
+       
+        [Test]
+        public void GetDeckByDeckIdAsync_ShouldThrowException_WhenDeckNotFound()
+        {
+            Assert.ThrowsAsync<NullReferenceException>(async () =>
+                await service.GetDeckByDeckIdAsync(999)); 
+        }
+
+        
+        [Test]
+        public void GetProblemByIdAsync_ShouldThrowException_WhenProblemNotFound()
+        {
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                await service.GetProblemByIdAsync(999));
+        }
+
+       
+        [Test]
+        public async Task GetAllDecksByUserId_ShouldReturnEmptyList_WhenUserHasNoDecks()
+        {
+            var userId = "non-existent-user";
+            var result = await service.GetAllDecksByUserId(userId);
+            Assert.That(result, Is.Empty);
+        }
+
     }
 }
