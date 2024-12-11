@@ -15,22 +15,5 @@ This project is designed to assist students in preparing for their Bulgarian and
 - **Frontend**: HTML, CSS
 - **Web**  ASP.NET with C#
 - **Database**: Entity Framework (Code First Approach)
-- **Cloud**: Google Cloud Platform for deployment and hosting
+- **Cloud**: Google Cloud Platform for photos
 
-## Getting Started
-
-### Prerequisites
-
-To run the project locally, ensure you have the following:
-
-- Visual Studio with ASP.NET and C# development tools
-- .NET SDK installed
-- SQL Server or a compatible database setup
-- A Google Cloud account (optional, for cloud hosting)
-
-### Setup Instructions
-
-1. **Clone the Repository**:
-   ```bash
-   git clone <repository-url>
-   cd <project-folder>
