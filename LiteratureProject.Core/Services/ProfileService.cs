@@ -52,15 +52,15 @@ namespace LiteratureProject.Core.Services
                 throw new InvalidOperationException("User not found.");
             }
 
-            // Update the user's bio and location
+            
             user.Bio = model.Bio;
             user.Location = model.Location;
 
-            // Save changes using the UserManager
+           
             var result = await _userManager.UpdateAsync(user);
             if (!result.Succeeded)
             {
-                // Collect and throw errors if the update fails
+               
                 var errors = string.Join(", ", result.Errors.Select(e => e.Description));
                 throw new InvalidOperationException($"Failed to update user: {errors}");
             }

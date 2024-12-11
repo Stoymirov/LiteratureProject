@@ -9,6 +9,7 @@ using LiteratureProject;
 using LiteratureProject.Core.Models.LiteratureWorkModels;
 using LiteratureProject.Extensions;
 using Microsoft.EntityFrameworkCore.Migrations.Internal;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LiteratureProject.Controllers
 {
@@ -24,7 +25,8 @@ namespace LiteratureProject.Controllers
             return View();
         }
         [HttpGet]
-        
+
+        [Authorize(Roles ="Teacher")]
         public async Task<IActionResult> Add(){
 
             var authors = await service.GetAuthorsAsync(); 
@@ -42,7 +44,7 @@ namespace LiteratureProject.Controllers
             return View(model);
         }
         [HttpPost]
-
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Add(LiteratureWorkViewModel model)
         {
             
@@ -134,6 +136,7 @@ namespace LiteratureProject.Controllers
             return View(model);
         }
         [HttpGet]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Edit(int id)
         {
             if(!await service.WorkExistsAsync(id))
@@ -144,6 +147,7 @@ namespace LiteratureProject.Controllers
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Edit( LiteratureWorkViewModel model)
         {
             if (await service.AuthorExistsAsync(model.AuthorId) == false)
@@ -164,6 +168,7 @@ namespace LiteratureProject.Controllers
           
         }
         [HttpGet]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Delete(int workId)
         {
             var model = await service.GetLiteratureWorkNormalByIdAsync(workId);
@@ -179,6 +184,7 @@ namespace LiteratureProject.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             
