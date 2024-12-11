@@ -13,7 +13,7 @@ This project is designed to assist students in preparing for their Bulgarian and
 ## Technologies Used
 
 - **Frontend**: HTML, CSS
-- **Backend**: ASP.NET with C#
+- **Web**  ASP.NET with C#
 - **Database**: Entity Framework (Code First Approach)
 - **Cloud**: Google Cloud Platform for deployment and hosting
 
