@@ -1,4 +1,5 @@
-﻿using LiteratureProject.Core.Models.ProfileModels;
+﻿using LiteratureProject.Core.Models.AdminModels;
+using LiteratureProject.Core.Models.ProfileModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace LiteratureProject.Core.Contracts
 {
     public interface IAdminService
     {
-        //public Task<IEnumerable<InfoModel>> GetAllinfoAsync();
+        Task<AdminDashboardViewModel> GetDashboardStatisticsAsync();
     }
+
 }

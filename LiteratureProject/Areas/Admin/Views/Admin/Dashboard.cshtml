@@ -1,0 +1,39 @@
+﻿@model LiteratureProject.Core.Models.AdminModels.AdminDashboardViewModel
+<link href="~/css/adminDashboard.css" rel="stylesheet" />
+<div class="container mt-4">
+    <h1>Admin Dashboard</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Users</div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.UserCount</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Decks</div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.DeckCount</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header">Authors Count</div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.AuthorsCount</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header">Literature Works Count</div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.LiteratureWorksCount</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

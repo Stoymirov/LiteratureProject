@@ -1,8 +1,9 @@
 ﻿@model LiteratureProject.Areas.Admin.Models.AssignRoleViewModel
-
+<link href="~/css/adminRole.css" rel="stylesheet" />
 <h2>Assign Role to User</h2>
 
 <form asp-action="AssignRoleToUser" method="post">
+    @Html.AntiForgeryToken()
     <div>
         <label for="userSelect">Select User:</label>
         <select id="userSelect" name="SelectedUserId" class="form-control">

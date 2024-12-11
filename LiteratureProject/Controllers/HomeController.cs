@@ -16,6 +16,10 @@ namespace LiteratureProject.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            //if (User.IsInRole("Admin"))
+            //{
+            //    return RedirectToAction("Dashboard", "Admin", new { area = "Admin" });
+            //}
             if (User.Identity?.IsAuthenticated == true)
             {
                

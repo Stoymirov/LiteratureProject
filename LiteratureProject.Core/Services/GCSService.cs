@@ -10,7 +10,7 @@ public class GCSService
 
     public GCSService(GoogleCloudConfig config)
     {
-        // Set the credentials using the JSON file
+       
         var credential = Google.Apis.Auth.OAuth2.GoogleCredential.FromFile(config.CredentialsFilePath);
         _storageClient = StorageClient.Create(credential);
 
@@ -19,11 +19,11 @@ public class GCSService
 
     public async Task<string> UploadFileAsync(Stream fileStream, string fileName,string contentType)
     {
-        // Upload file to Google Cloud Storage
+        
         var storageObject = await _storageClient.UploadObjectAsync(
             _bucketName,
             fileName,
-            contentType, // Content type
+            contentType,
             fileStream
         );
 

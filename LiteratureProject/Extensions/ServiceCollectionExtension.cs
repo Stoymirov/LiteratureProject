@@ -17,8 +17,10 @@ namespace LiteratureProject.Extensions
             services.AddScoped<IBulgarianService, BulgarianService>();
             services.AddScoped<ITestingService, TestingService>();
             services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IAdminService, AdminService>();
 
-            // Configure and register the GCSService
+
+          
             var googleCloudConfig = config.GetSection("GoogleCloud").Get<GoogleCloudConfig>();
             services.AddSingleton(googleCloudConfig);
             services.AddSingleton<GCSService>();

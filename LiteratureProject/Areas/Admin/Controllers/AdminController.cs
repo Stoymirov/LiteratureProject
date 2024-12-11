@@ -1,4 +1,6 @@
 ﻿using LiteratureProject.Areas.Admin.Models;
+using LiteratureProject.Core.Contracts;
+using LiteratureProject.Core.Services;
 using LiteratureProject.Extensions;
 using LiteratureProject.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -15,12 +17,13 @@ namespace LiteratureProject.Areas.Admin.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-       
+        private readonly IAdminService _adminService;
 
-        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,IAdminService adminService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _adminService = adminService;
         }
         [HttpGet]
         public async Task<IActionResult> AssignRoleToUser()
@@ -44,7 +47,7 @@ namespace LiteratureProject.Areas.Admin.Controllers
             };
 
             return View(model);
-        }
+        }[ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> AssignRoleToUser(AssignRoleViewModel model)
@@ -77,8 +80,9 @@ namespace LiteratureProject.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
-            
-            return View();
+
+            var statistics = await _adminService.GetDashboardStatisticsAsync();
+            return View(statistics);
         }
     }
 }
